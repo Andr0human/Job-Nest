@@ -1,0 +1,18 @@
+.hover-highlight:hover {
+  background-color: #f5f5f5;
+}
+
+.view-container {
+  background: aliceblue;
+  padding: 20px;
+}
+
+.view-card {
+  width: 70%;
+  margin: auto;
+  font-size: 15px;
+}
+
+.view-text {
+  font-size: 15px;
+}

@@ -1,0 +1,60 @@
+.listing-container {
+  padding: 20px;
+  background-color: aliceblue;
+}
+
+.listing-inner-layout {
+  margin-top: 20px;
+  background-color: aliceblue;
+}
+
+.listing-content {
+  background-color: white;
+  border-radius: 12px;
+  margin-left: 20px;
+  margin-right: 80px;
+}
+
+.select-container {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.filter-container {
+  padding: 20px;
+}
+
+.filter-btn-container {
+  text-align: center;
+  margin-top: 60px;
+}
+
+.filter-searchbar {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  border-radius: 12px;
+}
+
+.item-container {
+  padding: 20px;
+  min-height: 80vh;
+}
+
+.items-avatar {
+  width: 96px;
+  height: 96px;
+}
+
+.item-btn {
+  font-size: 22px;
+  height: auto;
+  width: auto;
+  color: blue;
+  margin: 8px;
+}
+
+.items-list {
+  width: 95%;
+  margin: auto;
+}

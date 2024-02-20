@@ -1,0 +1,29 @@
+.bulk-text {
+  font-size: 15px !important;
+}
+
+.reload-btn {
+  font-size: 20px;
+  margin-left: 12px;
+  color: black;
+  transition: color 0.3s;
+}
+
+.count-container {
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.count-card {
+  background-color: whitesmoke;
+}
+
+.spin-icon {
+  font-size: 20px;
+  margin-left: 12px;
+}
+
+.reload-btn:hover {
+  color: blue;
+}

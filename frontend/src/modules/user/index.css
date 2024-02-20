@@ -1,0 +1,40 @@
+.form-section {
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  padding: 48px 0px;
+  background-color: aliceblue;
+  background-size: "cover";
+}
+
+.form-container {
+  margin: 0 auto;
+  padding: 32px;
+  width: 400px;
+  background-color: white;
+  border-radius: 12px;
+}
+
+.form-title {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form-header {
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.form-footer {
+  margin-top: 24px;
+  text-align: center;
+  width: 100%;
+}
+
+.form-text {
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.form-icon {
+  font-size: 32px;
+}
