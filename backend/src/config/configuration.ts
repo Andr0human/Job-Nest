@@ -7,7 +7,6 @@ dotenv.config();
 const serverConfig: IServerConfig = Object.freeze({
     devMode: process.env.DEV_MODE ?? 'development',
     port: parseInt(process.env.PORT ?? '3000', 10),
-    dummyToken: process.env.DUMMY_TOKEN ?? '',
     jwtSecret: process.env.JWT_SECRET ?? '',
     mongoUrl: process.env.MONGO_URL ?? '',
 });
