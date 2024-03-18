@@ -1,17 +1,26 @@
 import request, { Response } from 'supertest';
 import express from 'express';
+import JWT from 'jsonwebtoken';
 import Server from '../Server';
 import { serverConfig } from '../config';
-
-const token: string = serverConfig.dummyToken;
 
 describe('API Integration Tests - Assignment3', () => {
     let server: Server;
     let app: express.Application;
+    let dummyToken: string;
 
     beforeAll(async () => {
         server = Server.getInstance(serverConfig);
         app = server.getApp();
+
+        dummyToken = JWT.sign(
+            {
+                user_id: 12345,
+                username: 'example_user',
+            },
+            serverConfig.jwtSecret,
+            { expiresIn: '1h' },
+        );
     });
 
     test('GET /', async () => {
@@ -26,7 +35,9 @@ describe('API Integration Tests - Assignment3', () => {
     });
 
     test('GET /mock', async () => {
-        let response: Response = await request(app).get('/assignment3/mock').set('Authorization', `Bearer ${token}`);
+        let response: Response = await request(app)
+            .get('/assignment3/mock')
+            .set('Authorization', `Bearer ${dummyToken}`);
 
         expect(response.status).toBe(200);
         expect(response.body).toEqual({
@@ -36,7 +47,9 @@ describe('API Integration Tests - Assignment3', () => {
         });
 
         // JWT token not provided
-        response = await request(app).get('/assignment3/mock').set('Authorization', 'Bearer');
+        response = await request(app)
+            .get('/assignment3/mock')
+            .set('Authorization', 'Bearer');
 
         expect(response.status).toBe(401);
         expect(response.body).toEqual({
@@ -80,7 +93,9 @@ describe('API Integration Tests - Assignment3', () => {
     });
 
     test('GET /mock-log-auth', async () => {
-        const response: Response = await request(app).get('/assignment3/mock-log-auth').set('Authorization', `Bearer ${token}`);
+        const response: Response = await request(app)
+            .get('/assignment3/mock-log-auth')
+            .set('Authorization', `Bearer ${dummyToken}`);
 
         expect(response.status).toBe(200);
         expect(response.body).toEqual({
@@ -91,7 +106,9 @@ describe('API Integration Tests - Assignment3', () => {
     });
 
     test('GET /mock-header', async () => {
-        const response: Response = await request(app).get('/assignment3/mock-header');
+        const response: Response = await request(app).get(
+            '/assignment3/mock-header',
+        );
 
         expect(response.get('author')).toEqual('Ayush Sinha');
 

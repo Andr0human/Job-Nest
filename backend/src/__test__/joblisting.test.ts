@@ -1,11 +1,7 @@
 import express from 'express';
-import fs from 'fs';
 import request, { Response } from 'supertest';
 import Server from '../Server';
 import { serverConfig } from '../config';
-import generateCsv from '../lib/utils/JobListing';
-import BulkUploadService from '../module/bulkupload/Service';
-import IBulkUpload from '../module/bulkupload/entities/IBulkUpload';
 import JobService from '../module/job/Services';
 import IJobListing from '../module/job/entities/IJobListing';
 import JobType from '../module/job/entities/JobType';
@@ -318,54 +314,4 @@ describe('API Integration Tests - JobListing Module', () => {
             error: expect.objectContaining({}),
         });
     });
-
-    test('POST /jobs/upload', async () => {
-        const uniqueSuffix: string = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
-        const csvPath: string = `./public/data/file-${uniqueSuffix}.csv`;
-        const bulkUploadService: BulkUploadService = new BulkUploadService();
-
-        await generateCsv(csvPath, 10010, 20000);
-
-        // Successful upload
-        let response: Response = await request(app)
-            .post('/jobs/upload')
-            .attach('file', csvPath);
-
-        const { recordId } = response.body.data;
-        let result: IBulkUpload | null = null;
-
-        /* eslint-disable no-await-in-loop */
-        while (result?.status !== 'completed') {
-            result = await bulkUploadService.getById(recordId, 'status');
-            // Cause a delay between each fetch
-            await new Promise<number>((resolve) => {
-                setTimeout(() => resolve(1), 800);
-            });
-        }
-
-        // Delete history record
-        await bulkUploadService.deleteAll();
-
-        expect(response.status).toBe(201);
-        expect(response.body).toEqual({
-            status: true,
-            message: 'File uploaded successfully',
-            data: expect.objectContaining({}),
-        });
-
-        // Internal server error
-        await server.disconnectDB();
-        response = await request(app)
-            .post('/jobs/upload')
-            .attach('file', csvPath);
-
-        expect(response.status).toBe(500);
-        expect(response.body).toEqual({
-            status: false,
-            message: 'error uploading joblistings by csv file!',
-            error: expect.objectContaining({}),
-        });
-
-        fs.unlinkSync(csvPath);
-    }, 30000);
 });

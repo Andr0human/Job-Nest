@@ -1,7 +1,7 @@
 {
-  "name": "backend-training",
+  "name": "backend",
   "version": "1.0.0",
-  "description": "This repo includes all my node assignments.",
+  "description": "This repo includes the backend part of Job-Nest project.",
   "main": "src/index.ts",
   "directories": {
     "lib": "lib"
