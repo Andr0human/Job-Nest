@@ -62,7 +62,7 @@ class Server {
         await this.connectDB();
 
         this.app.listen(this.config.port, () => {
-            logger.info(`Node Server Running In ${this.config.devMode} On Port http://localhost:${this.config.port}`);
+            logger.info(`Node Server Running In ${this.config.devMode}`);
         });
     };
 }

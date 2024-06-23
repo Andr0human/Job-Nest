@@ -23,8 +23,8 @@ class Database {
     connect = async (): Promise<void> => {
         try {
             await mongoose.connect(this.mongoUrl);
-            logger.info(`Connected to MongoDB database ${mongoose.connection.host}`);
-            console.info(`Connected to MongoDB database ${mongoose.connection.host}`);
+            logger.info(`Connected to MongoDB database ${this.mongoUrl}`);
+            console.info(`Connected to MongoDB database ${this.mongoUrl}`);
         } catch (error: unknown) {
             logger.error('MongoDB database connection error', error);
         }

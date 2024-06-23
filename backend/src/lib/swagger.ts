@@ -6,14 +6,8 @@ const options: any = {
         info: {
             title: 'API Documentation',
             version: '1.0.0',
-            description: 'API documentation for your Node.js app',
+            description: 'API documentation for Job-Nest app',
         },
-        servers: [
-            {
-                url: 'http://localhost:8080',
-                description: 'Development server',
-            },
-        ],
         components: {
             securitySchemes: {
                 ApiKeyAuth: {
