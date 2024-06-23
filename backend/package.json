@@ -8,9 +8,12 @@
   },
   "scripts": {
     "test": "jest",
-    "coverage": "jest --coverage --watchAll",
-    "lint": "eslint 'src/**/*.ts'",
-    "lint:fix": "eslint --fix 'src/**/*.ts'",
+    "test:c": "jest --coverage --watchAll",
+    "lint": "eslint --ext ts",
+    "lint:fix": "eslint --fix --ext ts",
+    "prebuild": "rm -rf dist/",
+    "build": "tsc",
+    "server": "nodemon dist/index.js",
     "start": "nodemon --exec ts-node src/index.ts"
   },
   "author": "",

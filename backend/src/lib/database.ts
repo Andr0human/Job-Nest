@@ -24,6 +24,7 @@ class Database {
         try {
             await mongoose.connect(this.mongoUrl);
             logger.info(`Connected to MongoDB database ${mongoose.connection.host}`);
+            console.info(`Connected to MongoDB database ${mongoose.connection.host}`);
         } catch (error: unknown) {
             logger.error('MongoDB database connection error', error);
         }
