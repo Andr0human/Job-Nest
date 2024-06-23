@@ -35,7 +35,7 @@ const PublicRoute = ({ children }) => {
     };
 
     getUser();
-  }, []);
+  });
 
   return isLoading ? null : children;
 };

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Button,
@@ -42,20 +42,20 @@ const ItemsData = () => {
   const [jobListing, setJobListing] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
 
-  const queryFilters = () => {
-    const query = Object.entries(filters).reduce((acc, [key, value]) => {
-      const newValue = Array.isArray(value) ? value.join(",") : value;
-      return newValue ? { ...acc, [key]: newValue } : acc;
-    }, {});
+  const fetchData = useCallback(async () => {
+    const queryFilters = () => {
+      const query = Object.entries(filters).reduce((acc, [key, value]) => {
+        const newValue = Array.isArray(value) ? value.join(",") : value;
+        return newValue ? { ...acc, [key]: newValue } : acc;
+      }, {});
+  
+      if (query.salary === "200000,5000000") {
+        delete query.salary;
+      }
+  
+      return query;
+    };
 
-    if (query.salary === "200000,5000000") {
-      delete query.salary;
-    }
-
-    return query;
-  };
-
-  const fetchData = async () => {
     try {
       const response = await apiInstance.get("/jobs/?", {
         params: {
@@ -65,7 +65,7 @@ const ItemsData = () => {
           fields: fields.join(","),
         },
       });
-
+  
       setJobListing(response.data.data.data);
       setTotalCount(response.data.data.total);
     } catch (error) {
@@ -73,13 +73,13 @@ const ItemsData = () => {
     } finally {
       setToFetch(false);
     }
-  };
+  }, [currentPage, itemsPerPage, setToFetch, filters]);
 
   useEffect(() => {
     if (toFetch) {
       fetchData();
     }
-  }, [toFetch]);
+  }, [toFetch, fetchData]);
 
   const deleteJobListing = async (jobId) => {
     try {

@@ -57,7 +57,7 @@ const ErrorDetail = (props) => {
     setIsOpen(true);
 
     fetchErrorDetail();
-  }, [recordId]);
+  }, [recordId, formatMilliseconds]);
 
   return (
     <div>

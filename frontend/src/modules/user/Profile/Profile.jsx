@@ -113,7 +113,7 @@ const Profile = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  });
 
   return (
     <>

@@ -81,7 +81,7 @@ const UploadHistory = (props) => {
     if (toFetchHistory) {
       fetchUploadHistory();
     }
-  }, [toFetchHistory]);
+  }, [toFetchHistory, currentPage, setToFetchHistory]);
 
   return (
     <>

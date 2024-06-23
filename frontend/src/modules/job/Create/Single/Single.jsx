@@ -29,7 +29,7 @@ const SingleUpload = () => {
     if (isAuth) {
       getUser();
     }
-  }, []);
+  });
 
   return (
       <UploadForm
