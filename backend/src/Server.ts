@@ -5,7 +5,6 @@ import { IServerConfig } from './config';
 import Database from './lib/database';
 import router from './routes';
 import logger from './lib/logger';
-import CountryService from './module/country/Service';
 
 class Server {
     // eslint-disable-next-line no-use-before-define
@@ -61,10 +60,6 @@ class Server {
     run = async (): Promise<void> => {
         // connect to DB
         await this.connectDB();
-
-        // seed the country database
-        const countryService: CountryService = new CountryService();
-        await countryService.initialSeed();
 
         this.app.listen(this.config.port, () => {
             logger.info(`Node Server Running In ${this.config.devMode} On Port http://localhost:${this.config.port}`);

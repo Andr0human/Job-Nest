@@ -1,8 +1,8 @@
-import { type NextFunction, type Request, type Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import JWT, { JwtPayload } from 'jsonwebtoken';
-import { serverConfig } from '../../../config';
-import logger from '../../logger';
-import { SystemResponse } from '../../response-handler';
+import { serverConfig } from '../../config';
+import logger from '../logger';
+import { SystemResponse } from '../response-handler';
 
 class AuthMiddleware {
     verifyToken: string;

@@ -1,6 +1,6 @@
-import { type NextFunction, type Request, type Response } from 'express';
-import { SystemResponse } from '../../response-handler';
-import logger from '../../logger';
+import { NextFunction, Request, Response } from 'express';
+import logger from '../logger';
+import { SystemResponse } from '../response-handler';
 
 class ErrorHandlerMiddlerware {
     static handle = (

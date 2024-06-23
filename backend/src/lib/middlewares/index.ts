@@ -1,4 +1,4 @@
-import { AuthMiddleware } from './Assignment-3';
+import AuthMiddleware from './AuthMiddleware';
+import ErrorHandlerMiddlerware from './ErrorHandlerMiddleware';
 
-// eslint-disable-next-line import/prefer-default-export
-export { AuthMiddleware };
+export { AuthMiddleware, ErrorHandlerMiddlerware };
