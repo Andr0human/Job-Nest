@@ -55,7 +55,7 @@ const Edit = () => {
         jobListing={jobListing}
         submitMessage="Update Job"
         requestMethod="PUT"
-        requestApi={`http://localhost:8080/jobs/${jobId}`}
+        requestApi={`${process.env.REACT_APP_BASE_URL}/jobs/${jobId}`}
         uploadSuccess={uploadSuccess}
         updatedBy={authData.userId}
       />

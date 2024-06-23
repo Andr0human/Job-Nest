@@ -36,7 +36,7 @@ const SingleUpload = () => {
         formHeading={"Create JobListing"}
         submitMessage="Create Job"
         requestMethod="POST"
-        requestApi={`http://localhost:8080/jobs`}
+        requestApi={`${process.env.REACT_APP_BASE_URL}/jobs`}
         uploadSuccess={uploadSuccess}
         createdBy={authData?.userId}
       />

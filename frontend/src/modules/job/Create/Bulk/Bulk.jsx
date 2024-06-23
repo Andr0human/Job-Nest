@@ -29,7 +29,7 @@ const BulkUpload = () => {
 
   const props = {
     name: "file",
-    action: "http://localhost:8080/jobs/upload",
+    action: `${process.env.REACT_APP_BASE_URL}/jobs/upload`,
     accept: ".csv",
     beforeUpload: (file) => {
       if (file.type !== "text/csv") {
