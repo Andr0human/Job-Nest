@@ -44,9 +44,9 @@ jspm_packages/
 .env.production.local
 .env.local
 
-# Nuxt.js build / generate output
-.nuxt
+# node and react build / generate output
 dist
+build
 
 # Gatsby files
 .cache/
