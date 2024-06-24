@@ -35,7 +35,7 @@ const PublicRoute = ({ children }) => {
     };
 
     getUser();
-  });
+  }, [setIsAuth, setUploadMenuKey, setDashboardMenuKey]);
 
   return isLoading ? null : children;
 };

@@ -1,6 +1,6 @@
 import { Form, message } from "antd";
 import dayjs from "dayjs";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Button,
@@ -55,9 +55,10 @@ const Profile = () => {
     });
   };
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       const response = await apiInstance.get(`/users/${authData.userId}`);
+
       const profileData = response.data?.data;
 
       if (profileData.dateOfBirth) {
@@ -68,7 +69,7 @@ const Profile = () => {
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-  };
+  }, [form, authData.userId]);
 
   const handleSave = async (e) => {
     e.preventDefault();
@@ -110,7 +111,7 @@ const Profile = () => {
 
   useEffect(() => {
     fetchData();
-  });
+  }, [fetchData]);
 
   return (
     <>
