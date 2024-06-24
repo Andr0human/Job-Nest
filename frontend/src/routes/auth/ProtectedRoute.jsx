@@ -29,7 +29,7 @@ const ProtectedRoute = ({ children }) => {
     };
 
     getUser();
-  });
+  }, [setAuthData, setIsAuth]);
 
   if (isLoading) {
     return null;

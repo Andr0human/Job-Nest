@@ -1,6 +1,6 @@
 import { Form, message } from "antd";
 import dayjs from "dayjs";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Button,
@@ -55,11 +55,9 @@ const Profile = () => {
     });
   };
 
-  const generateUrl = () => `/users/${authData.userId}`;
-
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
-      const response = await apiInstance.get(generateUrl());
+      const response = await apiInstance.get(`/users/${authData.userId}`);
 
       const profileData = response.data?.data;
 
@@ -71,7 +69,7 @@ const Profile = () => {
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-  };
+  }, [form, authData.userId]);
 
   const handleSave = async (e) => {
     e.preventDefault();
@@ -79,7 +77,7 @@ const Profile = () => {
     delete profileData.email;
 
     try {
-      await apiInstance.put(generateUrl(), profileData);
+      await apiInstance.put(`/users/${authData.userId}`, profileData);
 
       await fetchData();
       setEditMode(false);
@@ -97,7 +95,7 @@ const Profile = () => {
 
   const handleDeleteAccount = async () => {
     try {
-      await apiInstance.delete(generateUrl());
+      await apiInstance.delete(`/users/${authData.userId}`);
 
       displayMessage("success", {
         message:
@@ -113,7 +111,7 @@ const Profile = () => {
 
   useEffect(() => {
     fetchData();
-  });
+  }, [fetchData]);
 
   return (
     <>
