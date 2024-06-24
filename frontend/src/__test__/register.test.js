@@ -1,28 +1,18 @@
-import "@testing-library/jest-dom";
-import { fireEvent, render, screen } from "@testing-library/react";
-import React from "react";
-import { BrowserRouter } from "react-router-dom";
-import { Authentication, Register } from "../modules/user";
-import TestUser from "./TestUser";
-import "./setupTests";
-import { act } from "react-dom/test-utils";
+import '@testing-library/jest-dom';
+import { fireEvent, render, screen } from '@testing-library/react';
+import React, { act } from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import { Authentication, Register } from '../modules/user';
+import apiInstance from '../services/api';
+import { badRequestError2, userAlreadyExistError } from './mocks';
+import './setupTests';
 
-describe("Register Page Test", () => {
-  let testUser;
+jest.mock('../services/api');
 
-  beforeAll(() => {
-    testUser = new TestUser();
-  });
+describe('Register Page Test', () => {
+  it('form submission failed', async () => {
+    apiInstance.post.mockImplementation(() => Promise.reject(badRequestError2));
 
-  beforeEach(async () => {
-    await testUser.insertFakeEntry();
-  });
-
-  afterEach(async () => {
-    await testUser.deleteFakeEntry();
-  });
-
-  test("form submission failed", async () => {
     await act(async () =>
       render(
         <Authentication>
@@ -33,21 +23,21 @@ describe("Register Page Test", () => {
       )
     );
 
-    const nameElement = screen.getByLabelText("Name");
-    const emailElement = screen.getByLabelText("Email");
-    const passwordElement = screen.getByLabelText("Password");
-    const confirmPasswordElement = screen.getByLabelText("Confirm Password");
-    const registerButton = screen.getByRole("button", { name: "Sign Up" });
+    const nameElement = screen.getByLabelText('Name');
+    const emailElement = screen.getByLabelText('Email');
+    const passwordElement = screen.getByLabelText('Password');
+    const confirmPasswordElement = screen.getByLabelText('Confirm Password');
+    const registerButton = screen.getByRole('button', { name: 'Sign Up' });
 
-    fireEvent.change(nameElement, { target: { value: "jn" } });
-    fireEvent.change(emailElement, { target: { value: "jn@example.com" } });
-    fireEvent.change(passwordElement, { target: { value: "pas" } });
-    fireEvent.change(confirmPasswordElement, { target: { value: "pas" } });
+    fireEvent.change(nameElement, { target: { value: 'jn' } });
+    fireEvent.change(emailElement, { target: { value: 'jn@example.com' } });
+    fireEvent.change(passwordElement, { target: { value: 'pas' } });
+    fireEvent.change(confirmPasswordElement, { target: { value: 'pas' } });
 
-    expect(nameElement).toHaveValue("jn");
-    expect(emailElement).toHaveValue("jn@example.com");
-    expect(passwordElement).toHaveValue("pas");
-    expect(confirmPasswordElement).toHaveValue("pas");
+    expect(nameElement).toHaveValue('jn');
+    expect(emailElement).toHaveValue('jn@example.com');
+    expect(passwordElement).toHaveValue('pas');
+    expect(confirmPasswordElement).toHaveValue('pas');
 
     fireEvent.click(registerButton);
     expect(
@@ -56,12 +46,12 @@ describe("Register Page Test", () => {
       )
     ).toBeInTheDocument();
     expect(
-      await screen.findByText("Password must be at least 8 characters long")
+      await screen.findByText('Password must be at least 8 characters long')
     ).toBeInTheDocument();
   });
 
-  test("form submission passed", async () => {
-    await testUser.deleteFakeEntry();
+  it('form submission passed', async () => {
+    apiInstance.post.mockImplementation(() => Promise.resolve({}));
 
     await act(async () =>
       render(
@@ -73,35 +63,71 @@ describe("Register Page Test", () => {
       )
     );
 
-    const nameElement = screen.getByLabelText("Name");
-    const emailElement = screen.getByLabelText("Email");
-    const passwordElement = screen.getByLabelText("Password");
-    const confirmPasswordElement = screen.getByLabelText("Confirm Password");
-    const registerButton = screen.getByRole("button", { name: "Sign Up" });
+    const nameElement = screen.getByLabelText('Name');
+    const emailElement = screen.getByLabelText('Email');
+    const passwordElement = screen.getByLabelText('Password');
+    const confirmPasswordElement = screen.getByLabelText('Confirm Password');
+    const registerButton = screen.getByRole('button', { name: 'Sign Up' });
 
-    fireEvent.change(nameElement, { target: { value: testUser.name() } });
-    fireEvent.change(emailElement, { target: { value: testUser.email() } });
+    fireEvent.change(nameElement, { target: { value: 'Test-User' } });
+    fireEvent.change(emailElement, { target: { value: 'test@email.com' } });
     fireEvent.change(passwordElement, {
-      target: { value: testUser.password() },
+      target: { value: 'test@123' },
     });
     fireEvent.change(confirmPasswordElement, {
-      target: { value: testUser.password() },
+      target: { value: 'test@123' },
     });
 
-    expect(nameElement).toHaveValue(testUser.name());
-    expect(emailElement).toHaveValue(testUser.email());
-    expect(passwordElement).toHaveValue(testUser.password());
-    expect(confirmPasswordElement).toHaveValue(testUser.password());
+    expect(nameElement).toHaveValue('Test-User');
+    expect(emailElement).toHaveValue('test@email.com');
+    expect(passwordElement).toHaveValue('test@123');
+    expect(confirmPasswordElement).toHaveValue('test@123');
 
     fireEvent.click(registerButton);
 
     expect(
       await screen.findByText(
-        "User successfully registered. Redirecting to login page.."
+        'User successfully registered. Redirecting to login page..'
       )
     ).toBeInTheDocument();
+  });
+
+  it('form submission failed due to user already exists', async () => {
+    apiInstance.post.mockImplementation(() =>
+      Promise.reject(userAlreadyExistError)
+    );
+
+    await act(async () =>
+      render(
+        <Authentication>
+          <BrowserRouter>
+            <Register />
+          </BrowserRouter>
+        </Authentication>
+      )
+    );
+
+    const nameElement = screen.getByLabelText('Name');
+    const emailElement = screen.getByLabelText('Email');
+    const passwordElement = screen.getByLabelText('Password');
+    const confirmPasswordElement = screen.getByLabelText('Confirm Password');
+    const registerButton = screen.getByRole('button', { name: 'Sign Up' });
+
+    fireEvent.change(nameElement, { target: { value: 'Test-User' } });
+    fireEvent.change(emailElement, { target: { value: 'test@email.com' } });
+    fireEvent.change(passwordElement, {
+      target: { value: 'test@123' },
+    });
+    fireEvent.change(confirmPasswordElement, {
+      target: { value: 'test@123' },
+    });
+
+    expect(nameElement).toHaveValue('Test-User');
+    expect(emailElement).toHaveValue('test@email.com');
+    expect(passwordElement).toHaveValue('test@123');
+    expect(confirmPasswordElement).toHaveValue('test@123');
 
     fireEvent.click(registerButton);
-    expect(await screen.findByText("User already exists!")).toBeInTheDocument();
+    expect(await screen.findByText('User already exists!')).toBeInTheDocument();
   });
 });

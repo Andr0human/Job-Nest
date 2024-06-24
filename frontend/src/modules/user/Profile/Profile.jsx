@@ -55,12 +55,9 @@ const Profile = () => {
     });
   };
 
-  const generateUrl = () => `/users/${authData.userId}`;
-
   const fetchData = async () => {
     try {
-      const response = await apiInstance.get(generateUrl());
-
+      const response = await apiInstance.get(`/users/${authData.userId}`);
       const profileData = response.data?.data;
 
       if (profileData.dateOfBirth) {
@@ -79,7 +76,7 @@ const Profile = () => {
     delete profileData.email;
 
     try {
-      await apiInstance.put(generateUrl(), profileData);
+      await apiInstance.put(`/users/${authData.userId}`, profileData);
 
       await fetchData();
       setEditMode(false);
@@ -97,7 +94,7 @@ const Profile = () => {
 
   const handleDeleteAccount = async () => {
     try {
-      await apiInstance.delete(generateUrl());
+      await apiInstance.delete(`/users/${authData.userId}`);
 
       displayMessage("success", {
         message:

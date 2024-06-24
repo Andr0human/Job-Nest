@@ -69,8 +69,8 @@ const UploadHistory = (props) => {
           },
         });
 
-        setUploadHistory(response.data.data.data);
-        setTotalCount(response.data.data.total);
+        setUploadHistory(response?.data?.data?.data);
+        setTotalCount(response?.data?.data?.total);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {

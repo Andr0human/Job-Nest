@@ -1,43 +1,29 @@
-import "@testing-library/jest-dom";
-import {
-  act,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from "@testing-library/react";
-import React from "react";
-import { BrowserRouter, MemoryRouter, Route, Routes } from "react-router-dom";
-import App from "../App";
-import { View as JobView } from "../modules/job";
-import { Listing } from "../modules/job/Listing";
-import { Authentication } from "../modules/user";
-import TestJobListing from "./TestJobListing";
-import TestUser from "./TestUser";
-import "./setupTests";
+import '@testing-library/jest-dom';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import React, { act } from 'react';
+import { BrowserRouter, MemoryRouter, Route, Routes } from 'react-router-dom';
+import App from '../App';
+import { View as JobView } from '../modules/job';
+import { Listing } from '../modules/job/Listing';
+import { Authentication } from '../modules/user';
+import apiInstance from '../services/api';
+import { jobDetail, jobsData } from './mocks';
+import './setupTests';
 
-describe("Listing page Test", () => {
-  let testJobListing;
-  let testUser;
+jest.mock('../services/api');
 
-  beforeAll(() => {
-    testJobListing = new TestJobListing();
-    testUser = new TestUser();
-  });
-
-  beforeEach(async () => {
-    await testJobListing.insertFakeEntry();
-    await testUser.insertFakeEntry();
+describe('Listing page Test', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
   });
 
   afterEach(async () => {
-    await testJobListing.deleteFakeEntry(testUser.token());
-    await testUser.deleteFakeEntry();
-
-    window.history.pushState({}, "", "/");
+    window.history.pushState({}, '', '/');
   });
 
-  test("SearchBar test", async () => {
+  it.only('SearchBar test', async () => {
+    apiInstance.get.mockImplementationOnce(() => Promise.resolve(jobsData));
+
     await act(async () =>
       render(
         <BrowserRouter>
@@ -48,19 +34,19 @@ describe("Listing page Test", () => {
       )
     );
 
-    const searchBar = screen.getByPlaceholderText("Search jobs by Title...");
+    const searchBar = screen.getByPlaceholderText('Search jobs by Title...');
     expect(searchBar).toBeInTheDocument();
 
-    fireEvent.change(searchBar, { target: { value: "some filter" } });
-    expect(searchBar).toHaveValue("some filter");
+    fireEvent.change(searchBar, { target: { value: 'some filter' } });
+    expect(searchBar).toHaveValue('some filter');
 
-    const searchButton = screen.getByRole("button", { name: "Find Jobs" });
+    const searchButton = screen.getByRole('button', { name: 'Find Jobs' });
     expect(searchButton).toBeInTheDocument();
 
     fireEvent.click(searchButton);
   });
 
-  test("Filters test", async () => {
+  it('Filters test', async () => {
     await act(async () =>
       render(
         <BrowserRouter>
@@ -71,37 +57,40 @@ describe("Listing page Test", () => {
       )
     );
 
-    const applyButton = screen.getByText("Apply Filters");
+    const applyButton = screen.getByText('Apply Filters');
     expect(applyButton).toBeInTheDocument();
 
-    const resetButton = screen.getByText("Reset Filters");
+    const resetButton = screen.getByText('Reset Filters');
     expect(resetButton).toBeInTheDocument();
 
     fireEvent.click(applyButton);
     fireEvent.click(resetButton);
   });
 
-  test("Navigate to view page (success)", async () => {
+  it('Navigate to view page (success)', async () => {
+    apiInstance.get.mockImplementationOnce(() => Promise.resolve(jobsData));
+
     await act(async () => render(<App />));
 
     await waitFor(async () => {
-      expect(screen.getByText(testJobListing.title())).toBeInTheDocument();
+      expect(screen.getByText('Test Title - 1')).toBeInTheDocument();
     });
 
-    const viewButton = screen.getByTestId("view-button-0");
+    const viewButton = screen.getByTestId('view-button-0');
     expect(viewButton).toBeInTheDocument();
 
     fireEvent.click(viewButton);
-    expect(window.location.pathname).toBe(`/jobs/${testJobListing.id()}`);
+    expect(window.location.pathname).toBe('/jobs/id-1');
+
+    apiInstance.get.mockImplementationOnce(() => Promise.resolve(jobDetail));
 
     await waitFor(() => {
-      const title = testJobListing.title() + " (Test Company)";
-      expect(screen.getByText(title)).toBeInTheDocument();
+      expect(screen.getByText('Test Title - 1')).toBeInTheDocument();
     });
   });
 
-  test("Navigate to view page (failure)", async () => {
-    const targetUrl = `/jobs/${testJobListing.id()} - 2`;
+  it('Navigate to view page (failure)', async () => {
+    const targetUrl = '/jobs/id-abc';
     await act(async () =>
       render(
         <MemoryRouter initialEntries={[targetUrl]}>
@@ -113,61 +102,72 @@ describe("Listing page Test", () => {
     );
 
     await waitFor(() => {
-      const title = "Sorry, the page you are looking for does not exist.";
+      const title = 'Sorry, the page you are looking for does not exist.';
       expect(screen.getByText(title)).toBeInTheDocument();
     });
   });
 
-  test("Should be able to edit job listing", async () => {
-    localStorage.setItem("token", testUser.token());
+  it('Should be able to edit job listing', async () => {
+    localStorage.setItem('token', 'mock-token');
+    apiInstance.get.mockImplementationOnce(() => Promise.resolve(jobsData));
     await act(async () => render(<App />));
 
     await waitFor(async () => {
-      expect(screen.getByText(testJobListing.title())).toBeInTheDocument();
+      expect(screen.getByText('Test Title - 1')).toBeInTheDocument();
     });
 
-    const editButton = screen.getByTestId("edit-button-0");
+    const editButton = screen.getByTestId('edit-button-0');
     expect(editButton).toBeInTheDocument();
 
     fireEvent.click(editButton);
-    expect(window.location.pathname).toBe(`/edit/${testJobListing.id()}`);
+    expect(window.location.pathname).toBe('/edit/id-1');
+
+    apiInstance.get.mockImplementationOnce(() => Promise.resolve(jobDetail));
 
     await waitFor(() => {
-      expect(screen.getByPlaceholderText("Title...")).toHaveValue(
-        testJobListing.title()
+      expect(screen.getByPlaceholderText('Title...')).toHaveValue(
+        'Test Title - 1'
       );
     });
 
-    const contactElement = screen.getByPlaceholderText("Contact Email...");
-    expect(contactElement).toHaveValue("test@company.com");
+    const contactElement = screen.getByPlaceholderText('Contact Email...');
+    expect(contactElement).toHaveValue('test@company.com');
 
     fireEvent.change(contactElement, {
-      target: { value: "test-2@company.com" },
+      target: { value: 'test-2@company.com' },
     });
 
-    fireEvent.submit(screen.getByText("Update Job"));
+    apiInstance.get.mockImplementationOnce(() =>
+      Promise.resolve({
+        ...jobsData.data.data.data[0],
+        contactEmail: 'test-2@company.com',
+      })
+    );
+
+    fireEvent.submit(screen.getByText('Update Job'));
 
     await waitFor(() => {
-      expect(window.location.pathname).toBe("/dashboard");
+      expect(window.location.pathname).toBe('/dashboard');
     });
   });
 
-  test("Should be able to delete job listing", async () => {
-    localStorage.setItem("token", testUser.token());
+  it('Should be able to delete job listing', async () => {
+    localStorage.setItem('token', 'mock-token');
+    apiInstance.get.mockImplementationOnce(() => Promise.resolve(jobsData));
     await act(async () => render(<App />));
 
     await waitFor(async () => {
-      expect(screen.getByText(testJobListing.title())).toBeInTheDocument();
+      expect(screen.getByText('Test Title - 1')).toBeInTheDocument();
     });
 
-    const deleteButton = screen.getByTestId("delete-button-0");
+    const deleteButton = screen.getByTestId('delete-button-0');
     expect(deleteButton).toBeInTheDocument();
 
     fireEvent.click(deleteButton);
 
-    expect(screen.getByText("Are you sure to delete this job-listing?"));
+    expect(screen.getByText('Are you sure to delete this job-listing?'));
 
-    const yesButton = screen.getByRole("button", { name: "Yes" });
+    const yesButton = screen.getByRole('button', { name: 'Yes' });
     fireEvent.click(yesButton);
   });
 });
