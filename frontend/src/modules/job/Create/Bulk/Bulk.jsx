@@ -66,8 +66,7 @@ const BulkUpload = () => {
   const fetchUploadCount = async () => {
     try {
       const response = await apiInstance.get("/jobs/count");
-
-      setJobListingCount(response?.data?.data.count);
+      setJobListingCount(response?.data?.data?.count);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {

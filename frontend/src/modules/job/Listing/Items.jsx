@@ -1,29 +1,29 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Button,
   List,
   ListItem,
   ListItemMeta,
   Popconfirm,
-} from "../../../components";
+} from '../../../components';
 import {
   DeleteOutlined,
   EditOutlined,
   EyeOutlined,
-} from "../../../components/Icons";
-import apiInstance from "../../../services/api";
-import { AuthenticationContext } from "../../user";
-import { ListingContext } from "./Context";
+} from '../../../components/Icons';
+import apiInstance from '../../../services/api';
+import { AuthenticationContext } from '../../user';
+import { ListingContext } from './Context';
 
 const fields = [
-  "_id",
-  "title",
-  "company",
-  "logo",
-  "salary",
-  "address",
-  "description",
+  '_id',
+  'title',
+  'company',
+  'logo',
+  'salary',
+  'address',
+  'description',
 ];
 
 const ItemsData = () => {
@@ -45,29 +45,29 @@ const ItemsData = () => {
   const fetchData = useCallback(async () => {
     const queryFilters = () => {
       const query = Object.entries(filters).reduce((acc, [key, value]) => {
-        const newValue = Array.isArray(value) ? value.join(",") : value;
+        const newValue = Array.isArray(value) ? value.join(',') : value;
         return newValue ? { ...acc, [key]: newValue } : acc;
       }, {});
-  
-      if (query.salary === "200000,5000000") {
+
+      if (query.salary === '200000,5000000') {
         delete query.salary;
       }
-  
+
       return query;
     };
 
     try {
-      const response = await apiInstance.get("/jobs/?", {
+      const response = await apiInstance.get('/jobs/?', {
         params: {
           ...queryFilters(),
           page: currentPage,
           limit: itemsPerPage,
-          fields: fields.join(","),
+          fields: fields.join(','),
         },
       });
-  
-      setJobListing(response.data.data.data);
-      setTotalCount(response.data.data.total);
+
+      setJobListing(response?.data?.data?.data);
+      setTotalCount(response?.data?.data?.total);
     } catch (error) {
       console.error(error);
     } finally {
@@ -105,8 +105,8 @@ const ItemsData = () => {
         className="items-list"
         pagination={{
           showQuickJumper: true,
-          size: "small",
-          align: "center",
+          size: 'small',
+          align: 'center',
           pageSize: itemsPerPage,
           total: totalCount,
           current: currentPage,

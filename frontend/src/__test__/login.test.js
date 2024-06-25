@@ -1,33 +1,23 @@
 import "@testing-library/jest-dom";
 import {
-  act,
   fireEvent,
   render,
   screen,
   waitFor,
 } from "@testing-library/react";
-import React from "react";
+import React, { act } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Authentication, Login } from "../modules/user";
-import TestUser from "./TestUser";
+import apiInstance from '../services/api';
+import { successfulLogin, userNotFoundError } from "./mocks";
 import "./setupTests";
 
+jest.mock('../services/api');
+
 describe("Login Page Test", () => {
-  let testUser;
+  it("form submission failed", async () => {
+    apiInstance.post.mockImplementation(() => Promise.reject(userNotFoundError));
 
-  beforeAll(() => {
-    testUser = new TestUser();
-  });
-
-  beforeEach(async () => {
-    await testUser.insertFakeEntry();
-  });
-
-  afterEach(async () => {
-    await testUser.deleteFakeEntry();
-  });
-
-  test("form submission failed", async () => {
     await act(async () =>
       render(
         <Authentication>
@@ -54,7 +44,9 @@ describe("Login Page Test", () => {
     ).toBeInTheDocument();
   });
 
-  test("form submission passed", async () => {
+  it("form submission passed", async () => {
+    apiInstance.post.mockImplementation(() => Promise.resolve(successfulLogin));
+
     await act(async () =>
       render(
         <Authentication>
@@ -69,13 +61,13 @@ describe("Login Page Test", () => {
     const passwordElement = screen.getByLabelText("Password");
     const loginButton = screen.getByRole("button", { name: "Log in" });
 
-    fireEvent.change(emailElement, { target: { value: testUser.email() } });
+    fireEvent.change(emailElement, { target: { value: 'test@email.com' } });
     fireEvent.change(passwordElement, {
-      target: { value: testUser.password() },
+      target: { value: 'test@123' },
     });
 
-    expect(emailElement).toHaveValue(testUser.email());
-    expect(passwordElement).toHaveValue(testUser.password());
+    expect(emailElement).toHaveValue('test@email.com');
+    expect(passwordElement).toHaveValue('test@123');
 
     fireEvent.click(loginButton);
     expect(

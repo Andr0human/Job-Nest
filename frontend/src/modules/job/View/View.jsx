@@ -25,9 +25,9 @@ const View = () => {
     const fetchData = async () => {
       try {
         const response = await apiInstance.get(`/jobs/${jobId}`);
-        const jobData = response.data?.data;
+        const jobData = response?.data?.data;
 
-        if (jobData.address) {
+        if (jobData?.address) {
           jobData.address = `${jobData.address.city}, ${jobData.address.state}`;
         }
 
