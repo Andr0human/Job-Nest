@@ -25,13 +25,6 @@ const View = () => {
     const fetchData = async () => {
       try {
         const response = await apiInstance.get(`/jobs/${jobId}`);
-
-        console.log('response =', response);
-
-        // if (response?.data === undefined) {
-        //   throw new Error('No job found for the jobId!');
-        // }
-
         const jobData = response?.data?.data;
 
         if (jobData?.address) {

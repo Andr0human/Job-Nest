@@ -5,14 +5,23 @@ export const badRequestError = {
 };
 
 export const userNotFoundError = {
-  message: 'Request failed with status code 404',
-  name: 'AxiosError',
-  code: 'ERR_BAD_REQUEST',
   response: {
     data: {
       status: false,
       message: 'no user found for current email!',
       error: [],
+    },
+  },
+};
+
+export const jobNotFoundError = {
+  response: {
+    data: {
+      status: false,
+      message: 'No job found for the provided ID!',
+      error: {
+        jobId: 'abcdef123456abcdef123456',
+      },
     },
   },
 };

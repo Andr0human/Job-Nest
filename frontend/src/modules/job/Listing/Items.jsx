@@ -66,16 +66,6 @@ const ItemsData = () => {
         },
       });
 
-      console.log('fetchData = ', {
-        currentPage,
-        itemsPerPage,
-        setToFetch,
-        filters,
-        query: queryFilters(),
-        fields
-      });
-      console.log('response.data =', response);
-
       setJobListing(response?.data?.data?.data);
       setTotalCount(response?.data?.data?.total);
     } catch (error) {

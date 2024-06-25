@@ -7,13 +7,13 @@ import { View as JobView } from '../modules/job';
 import { Listing } from '../modules/job/Listing';
 import { Authentication } from '../modules/user';
 import apiInstance from '../services/api';
-import { jobDetail, jobsData } from './mocks';
+import { jobDetail, jobNotFoundError, jobsData, mockUser } from './mocks';
 import './setupTests';
 
 jest.mock('../services/api');
 
 describe('Listing page Test', () => {
-  beforeEach(() => {
+  beforeAll(() => {
     jest.clearAllMocks();
   });
 
@@ -21,8 +21,10 @@ describe('Listing page Test', () => {
     window.history.pushState({}, '', '/');
   });
 
-  it.only('SearchBar test', async () => {
-    apiInstance.get.mockImplementationOnce(() => Promise.resolve(jobsData));
+  it('SearchBar test', async () => {
+    apiInstance.get
+      .mockImplementationOnce(() => Promise.resolve(jobsData))
+      .mockImplementationOnce(() => Promise.resolve(jobsData));
 
     await act(async () =>
       render(
@@ -37,16 +39,25 @@ describe('Listing page Test', () => {
     const searchBar = screen.getByPlaceholderText('Search jobs by Title...');
     expect(searchBar).toBeInTheDocument();
 
-    fireEvent.change(searchBar, { target: { value: 'some filter' } });
-    expect(searchBar).toHaveValue('some filter');
+    fireEvent.change(searchBar, { target: { value: 'Test Company' } });
+    expect(searchBar).toHaveValue('Test Company');
 
     const searchButton = screen.getByRole('button', { name: 'Find Jobs' });
     expect(searchButton).toBeInTheDocument();
 
     fireEvent.click(searchButton);
+
+    await waitFor(() => {
+      expect(screen.getByText('Test Title - 1')).toBeInTheDocument();
+    });
   });
 
   it('Filters test', async () => {
+    apiInstance.get
+      .mockImplementationOnce(() => Promise.resolve(jobsData))
+      .mockImplementationOnce(() => Promise.resolve(jobsData))
+      .mockImplementationOnce(() => Promise.resolve(jobsData));
+
     await act(async () =>
       render(
         <BrowserRouter>
@@ -65,37 +76,48 @@ describe('Listing page Test', () => {
 
     fireEvent.click(applyButton);
     fireEvent.click(resetButton);
-  });
-
-  it('Navigate to view page (success)', async () => {
-    apiInstance.get.mockImplementationOnce(() => Promise.resolve(jobsData));
-
-    await act(async () => render(<App />));
-
-    await waitFor(async () => {
-      expect(screen.getByText('Test Title - 1')).toBeInTheDocument();
-    });
-
-    const viewButton = screen.getByTestId('view-button-0');
-    expect(viewButton).toBeInTheDocument();
-
-    fireEvent.click(viewButton);
-    expect(window.location.pathname).toBe('/jobs/id-1');
-
-    apiInstance.get.mockImplementationOnce(() => Promise.resolve(jobDetail));
 
     await waitFor(() => {
       expect(screen.getByText('Test Title - 1')).toBeInTheDocument();
     });
   });
 
+  it('Navigate to view page (success)', async () => {
+    apiInstance.get
+      .mockImplementationOnce(() => Promise.resolve(mockUser))
+      .mockImplementationOnce(() => Promise.resolve(jobsData))
+      .mockImplementationOnce(() => Promise.resolve(jobDetail));
+
+    await act(async () => render(<App />));
+
+    await waitFor(async () => {
+      expect(screen.getByText(jobDetail.data.data.title)).toBeInTheDocument();
+    });
+
+    const viewButton = screen.getByTestId('view-button-0');
+    expect(viewButton).toBeInTheDocument();
+
+    fireEvent.click(viewButton);
+    expect(window.location.pathname).toBe(`/jobs/${jobDetail.data.data._id}`);
+
+    await waitFor(() => {
+      expect(screen.getByText(jobDetail.data.data.title)).toBeInTheDocument();
+    });
+  });
+
   it('Navigate to view page (failure)', async () => {
-    const targetUrl = '/jobs/id-abc';
+    const mockJobId = 'abcdef123456abcdef123456';
+    const targetUrl = `/jobs/${mockJobId}`;
+
+    apiInstance.get.mockImplementationOnce(() =>
+      Promise.reject(jobNotFoundError)
+    );
+
     await act(async () =>
       render(
         <MemoryRouter initialEntries={[targetUrl]}>
           <Routes>
-            <Route path="/jobs/:jobId" element={<JobView />} />
+            <Route path='/jobs/:jobId' element={<JobView />} />
           </Routes>
         </MemoryRouter>
       )
@@ -109,24 +131,29 @@ describe('Listing page Test', () => {
 
   it('Should be able to edit job listing', async () => {
     localStorage.setItem('token', 'mock-token');
-    apiInstance.get.mockImplementationOnce(() => Promise.resolve(jobsData));
+
+    apiInstance.get
+      .mockImplementationOnce(() => Promise.resolve(mockUser))
+      .mockImplementationOnce(() => Promise.resolve(jobsData))
+      .mockImplementationOnce(() => Promise.resolve(jobDetail));
+
     await act(async () => render(<App />));
 
     await waitFor(async () => {
-      expect(screen.getByText('Test Title - 1')).toBeInTheDocument();
+      expect(screen.getByText(jobDetail.data.data.title)).toBeInTheDocument();
     });
 
     const editButton = screen.getByTestId('edit-button-0');
     expect(editButton).toBeInTheDocument();
 
     fireEvent.click(editButton);
-    expect(window.location.pathname).toBe('/edit/id-1');
+    expect(window.location.pathname).toBe(`/edit/${jobDetail.data.data._id}`);
 
     apiInstance.get.mockImplementationOnce(() => Promise.resolve(jobDetail));
 
     await waitFor(() => {
       expect(screen.getByPlaceholderText('Title...')).toHaveValue(
-        'Test Title - 1'
+        jobDetail.data.data.title
       );
     });
 
@@ -153,7 +180,11 @@ describe('Listing page Test', () => {
 
   it('Should be able to delete job listing', async () => {
     localStorage.setItem('token', 'mock-token');
-    apiInstance.get.mockImplementationOnce(() => Promise.resolve(jobsData));
+
+    apiInstance.get
+      .mockImplementationOnce(() => Promise.resolve(mockUser))
+      .mockImplementationOnce(() => Promise.resolve(jobsData));
+
     await act(async () => render(<App />));
 
     await waitFor(async () => {
@@ -164,7 +195,6 @@ describe('Listing page Test', () => {
     expect(deleteButton).toBeInTheDocument();
 
     fireEvent.click(deleteButton);
-
     expect(screen.getByText('Are you sure to delete this job-listing?'));
 
     const yesButton = screen.getByRole('button', { name: 'Yes' });
