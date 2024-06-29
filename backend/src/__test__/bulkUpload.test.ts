@@ -1,12 +1,13 @@
 /* eslint-disable no-underscore-dangle */
 import express from 'express';
+import { MongoMemoryServer } from 'mongodb-memory-server';
 import request, { Response } from 'supertest';
 import Server from '../Server';
 import { serverConfig } from '../config';
-import UserService from '../module/user/Services';
-import IUser from '../module/user/entities/IUser';
 import BulkUploadService from '../module/bulkupload/Service';
 import IBulkUpload from '../module/bulkupload/entities/IBulkUpload';
+import UserService from '../module/user/Services';
+import IUser from '../module/user/entities/IUser';
 
 describe('API Integration Tests - User Module', () => {
     let server: Server;
@@ -16,7 +17,10 @@ describe('API Integration Tests - User Module', () => {
     let testUser: IUser;
 
     beforeAll(async () => {
-        server = Server.getInstance(serverConfig);
+        const mockMongo = await MongoMemoryServer.create();
+        const mongoUrl = mockMongo.getUri();
+
+        server = Server.getInstance({ ...serverConfig, mongoUrl });
         await server.connectDB();
         app = server.getApp();
         bulkUploadService = new BulkUploadService();
@@ -26,7 +30,7 @@ describe('API Integration Tests - User Module', () => {
             email: `user@test-${Date.now()}.com`,
             password: 'pass@1234',
         };
-    });
+    }, 900000);
 
     afterAll(async () => {
         await server.disconnectDB();

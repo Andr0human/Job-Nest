@@ -1,4 +1,5 @@
 import express from 'express';
+import { MongoMemoryServer } from 'mongodb-memory-server';
 import request, { Response } from 'supertest';
 import Server from '../Server';
 import { serverConfig } from '../config';
@@ -27,7 +28,10 @@ describe('API Integration Tests - JobListing Module', () => {
     };
 
     beforeAll(async () => {
-        server = Server.getInstance(serverConfig);
+        const mockMongo = await MongoMemoryServer.create();
+        const mongoUrl = mockMongo.getUri();
+
+        server = Server.getInstance({ ...serverConfig, mongoUrl });
         await server.connectDB();
         app = server.getApp();
         jobService = new JobService();
@@ -39,7 +43,7 @@ describe('API Integration Tests - JobListing Module', () => {
             email: `user@test-${Date.now()}.com`,
             password: 'pass@1234',
         };
-    });
+    }, 900000);
 
     afterAll(async () => {
         await server.disconnectDB();
