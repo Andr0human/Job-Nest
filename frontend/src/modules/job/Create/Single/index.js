@@ -1,5 +1,5 @@
-import { lazy } from "react";
+import { lazy } from 'react';
 
-const SingleUpload =  lazy(() => import("./Single"));
+const SingleUpload = lazy(() => import('./Single'));
 
 export { SingleUpload };

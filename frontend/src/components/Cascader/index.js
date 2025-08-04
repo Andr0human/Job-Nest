@@ -1,5 +1,5 @@
-import { lazy } from "react";
+import { lazy } from 'react';
 
-const Cascader = lazy(() => import("./Cascader"));
+const Cascader = lazy(() => import('./Cascader'));
 
 export { Cascader };

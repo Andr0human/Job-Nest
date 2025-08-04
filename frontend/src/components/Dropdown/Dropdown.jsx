@@ -1,7 +1,5 @@
-import { Dropdown as DropdownComponent } from "antd";
+import { Dropdown as DropdownComponent } from 'antd';
 
-const Dropdown = (props) => {
-  return <DropdownComponent {...props} />;
-};
+const Dropdown = props => <DropdownComponent {...props} />;
 
 export default Dropdown;

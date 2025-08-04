@@ -1,12 +1,10 @@
-import React, { forwardRef } from "react";
-import { Input } from "antd";
+import { Input } from 'antd';
+import { forwardRef } from 'react';
 
-const TextArea = forwardRef((props, ref) => {
-  return (
-    <div ref={ref}>
-      <Input.TextArea {...props} />
-    </div>
-  );
-});
+const TextArea = forwardRef((props, ref) => (
+  <Input.TextArea {...props} ref={ref} />
+));
+
+TextArea.displayName = 'TextArea';
 
 export default TextArea;

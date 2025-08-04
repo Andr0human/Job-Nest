@@ -1,47 +1,575 @@
-.upload-form-section {
-  display: flex;
-  height: 100%;
+/* Modern Upload Form Styles */
+.modern-upload-form {
   width: 100%;
-  background-color: aliceblue;
-  background-size: "cover";
+  max-width: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 600px;
 }
 
-.upload-form-container {
-  margin: 0 auto;
-  padding: 32px 64px;
-  min-width: 60%;
-  width: 700px;
-  background-color: white;
-  border-radius: 12px;
-}
-
-.upload-form-title {
-  margin-bottom: 20px;
+/* Form Header */
+.form-header {
+  padding: 2rem;
+  background: white;
+  border-bottom: 1px solid var(--gray-200);
   text-align: center;
 }
 
-.form-input-number {
-  width: 100%;
+.form-title {
+  color: var(--gray-800) !important;
+  margin-bottom: 0.5rem !important;
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.form-subtitle {
+  color: var(--gray-600);
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Steps Container */
+.steps-container {
+  padding: 2rem;
+  background: white;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.custom-steps {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.custom-steps .ant-steps-item {
+  cursor: default;
+}
+
+.custom-steps .ant-steps-item-title {
+  line-height: 1.4;
+}
+
+.step-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.step-icon {
+  font-size: 1.25rem;
+  display: block;
+}
+
+.step-name {
+  font-weight: 600;
+  color: var(--gray-800);
+  font-size: 0.875rem;
+}
+
+.step-desc {
+  font-size: 0.75rem;
+  color: var(--gray-500);
+  margin-top: 0.125rem;
+}
+
+.custom-steps .ant-steps-item-process .step-name {
+  color: var(--primary-600);
+}
+
+.custom-steps .ant-steps-item-finish .step-name {
+  color: var(--success-600);
+}
+
+/* Form Content */
+.modern-form {
+  background: white;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.step-card {
+  margin: 0;
+  border: none;
+  box-shadow: none;
+  background: transparent;
+  min-height: 500px;
+  flex: 1;
+}
+
+.step-content {
+  padding: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.step-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.step-header h3 {
+  color: var(--gray-800);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.step-header p {
+  color: var(--gray-600);
+  font-size: 1rem;
+  margin: 0;
+}
+
+.form-fields {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Form Field Styles */
+.form-fields .ant-form-item {
+  margin-bottom: 0;
+}
+
+.form-fields .ant-form-item-label > label {
+  font-weight: 500;
+  color: var(--gray-700);
+  font-size: 0.875rem;
+}
+
+.form-fields .ant-input,
+.form-fields .ant-input-number,
+.form-fields .ant-select-selector,
+.form-fields .ant-cascader-picker,
+.form-fields .ant-picker {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--gray-300);
+  transition: all var(--transition-fast);
+  font-size: 0.875rem;
+}
+
+.form-fields .ant-input:focus,
+.form-fields .ant-input-number-focused,
+.form-fields .ant-select-focused .ant-select-selector,
+.form-fields .ant-cascader-picker-focused,
+.form-fields .ant-picker-focused {
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 3px rgba(139, 95, 184, 0.1);
+}
+
+.form-fields .ant-input::placeholder,
+.form-fields .ant-select-selection-placeholder {
+  color: var(--gray-400);
+}
+
+/* TextArea Specific */
+.form-fields .ant-input {
+  line-height: 1.6;
+}
+
+/* Row Gutter Fix */
+.form-fields .ant-row {
+  margin-left: -12px;
+  margin-right: -12px;
+}
+
+.form-fields .ant-col {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+/* Array Field Styles */
+.array-field-container {
+  margin-bottom: 0;
+}
+
+.array-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
 }
 
 .form-item-container {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background: var(--gray-50);
+  padding: 0.75rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--gray-200);
+  transition: all var(--transition-fast);
+}
+
+.form-item-container:hover {
+  border-color: var(--gray-300);
+  background: var(--gray-100);
 }
 
 .form-subitem {
   flex: 1;
-  min-width: 0;
-  width: 700px;
+  margin-bottom: 0;
+}
+
+.form-subitem .ant-form-item-control {
+  line-height: 1;
 }
 
 .form-subitem-icon {
-  font-size: 22px;
-  margin-bottom: 24px;
-  margin-left: 15px;
-  width: 20px;
+  color: var(--error-500);
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  padding: 0.25rem;
+  border-radius: var(--radius-sm);
 }
 
+.form-subitem-icon:hover {
+  color: var(--error-600);
+  background: var(--error-50);
+}
+
+.add-item-btn {
+  border: 2px dashed var(--gray-300);
+  color: var(--gray-600);
+  background: transparent;
+  border-radius: var(--radius-md);
+  height: 40px;
+  transition: all var(--transition-fast);
+}
+
+.add-item-btn:hover {
+  border-color: var(--primary-500);
+  color: var(--primary-600);
+  background: var(--primary-50);
+}
+
+/* Job Preview */
+.job-preview {
+  margin-top: 2rem;
+  border: 1px solid var(--primary-200);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--primary-50) 0%, white 100%);
+  box-shadow: 0 4px 12px rgba(139, 95, 184, 0.1);
+}
+
+.job-preview h4 {
+  color: var(--primary-700);
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.preview-content h4 {
+  color: var(--gray-800);
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
+
+.company-name {
+  color: var(--gray-600);
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.preview-details {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.preview-tag {
+  background: var(--primary-100);
+  color: var(--primary-700);
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--radius-md);
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: 1px solid var(--primary-200);
+}
+
+.preview-salary {
+  background: var(--success-100);
+  color: var(--success-700);
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--radius-md);
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid var(--success-200);
+}
+
+.preview-location {
+  background: var(--info-100);
+  color: var(--info-700);
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--radius-md);
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: 1px solid var(--info-200);
+}
+
+.preview-description,
+.preview-skills,
+.preview-contact,
+.preview-deadline {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background: white;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--gray-200);
+}
+
+.preview-description strong,
+.preview-skills strong,
+.preview-contact strong,
+.preview-deadline strong {
+  color: var(--gray-700);
+  font-size: 0.875rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.preview-description p {
+  color: var(--gray-600);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.skills-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.skill-tag {
+  background: var(--gray-100);
+  color: var(--gray-700);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: 1px solid var(--gray-200);
+}
+
+.preview-contact,
+.preview-deadline {
+  color: var(--gray-600);
+  font-size: 0.875rem;
+}
+
+/* Form Field Consistency */
+.form-fields .ant-input,
+.form-fields .ant-input-number-input,
+.form-fields .ant-select-selector,
+.form-fields .ant-cascader-picker,
+.form-fields .ant-picker {
+  min-height: 42px;
+}
+
+.form-fields .ant-input-number {
+  width: 100%;
+}
+
+.form-fields .ant-col {
+  margin-bottom: 1.5rem;
+}
+
+/* Form Navigation */
+.form-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  background: white;
+  border-top: 1px solid var(--gray-200);
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+}
+
+.nav-right {
+  margin-left: auto;
+}
+
+.prev-btn,
+.next-btn,
+.submit-btn {
+  border-radius: var(--radius-md);
+  height: 40px;
+  padding: 0 2rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: all var(--transition-fast);
+}
+
+.prev-btn {
+  background: var(--gray-100);
+  border: 1px solid var(--gray-300);
+  color: var(--gray-700);
+}
+
+.prev-btn:hover {
+  background: var(--gray-200);
+  border-color: var(--gray-400);
+  color: var(--gray-800);
+}
+
+.next-btn,
+.submit-btn {
+  background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+  border: none;
+  color: white;
+}
+
+.next-btn:hover,
+.submit-btn:hover {
+  background: linear-gradient(135deg, var(--primary-700), var(--primary-800));
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, var(--success-600), var(--success-700));
+}
+
+.submit-btn:hover {
+  background: linear-gradient(135deg, var(--success-700), var(--success-800));
+}
+
+/* Loading Button */
+.submit-btn.ant-btn-loading {
+  background: var(--gray-400);
+}
+
+/* Error States */
+.ant-form-item-has-error .ant-input,
+.ant-form-item-has-error .ant-input-number,
+.ant-form-item-has-error .ant-select-selector,
+.ant-form-item-has-error .ant-cascader-picker,
+.ant-form-item-has-error .ant-picker {
+  border-color: var(--error-500);
+}
+
+.ant-form-item-has-error .ant-input:focus,
+.ant-form-item-has-error .ant-input-number-focused,
+.ant-form-item-has-error .ant-select-focused .ant-select-selector,
+.ant-form-item-has-error .ant-cascader-picker-focused,
+.ant-form-item-has-error .ant-picker-focused {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.ant-form-item-explain-error {
+  color: var(--error-600);
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .step-content {
+    padding: 1.5rem 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .step-content {
+    padding: 1.5rem 1rem;
+  }
+  
+  .form-header {
+    padding: 1.5rem 1rem;
+  }
+  
+  .steps-container {
+    padding: 1.5rem 1rem;
+  }
+  
+  .custom-steps .ant-steps-item {
+    padding-left: 0;
+  }
+  
+  .step-title {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.25rem;
+  }
+  
+  .step-icon {
+    font-size: 1.5rem;
+  }
+  
+  .form-navigation {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .form-navigation .prev-btn {
+    order: 2;
+    width: 100%;
+  }
+  
+  .nav-right {
+    order: 1;
+    margin-left: 0;
+    width: 100%;
+  }
+  
+  .next-btn,
+  .submit-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-fields .ant-row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  
+  .form-fields .ant-col {
+    padding-left: 0;
+    padding-right: 0;
+    margin-bottom: 1rem;
+  }
+  
+  .preview-details {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .form-title {
+    font-size: 1.5rem;
+  }
+  
+  .step-header h3 {
+    font-size: 1.25rem;
+  }
+}
+
+/* Animation */
+.step-content {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Legacy CSS cleanup - remove old styles */
+.upload-form-section,
+.upload-form-container,
 .form-submit-btn {
-  text-align: center;
+  display: none;
 }

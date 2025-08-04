@@ -1,5 +1,5 @@
-import { lazy } from "react";
+import { lazy } from 'react';
 
-const CountUp = lazy(() => import("./CountUp"));
+const CountUp = lazy(() => import('./CountUp'));
 
 export { CountUp };

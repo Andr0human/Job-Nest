@@ -1,7 +1,5 @@
-import { Typography } from "antd";
+import { Typography } from 'antd';
 
-const Title = (props) => {
-  return <Typography.Title {...props} />;
-};
+const Title = props => <Typography.Title {...props} />;
 
 export default Title;

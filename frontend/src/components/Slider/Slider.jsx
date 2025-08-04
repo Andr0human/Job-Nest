@@ -1,7 +1,10 @@
-import { Slider as SliderComponent } from "antd";
+import { Slider as SliderComponent } from 'antd';
+import { forwardRef } from 'react';
 
-const Slider = (props) => {
-  return <SliderComponent {...props} />;
-};
+const Slider = forwardRef((props, ref) => (
+  <SliderComponent {...props} ref={ref} />
+));
+
+Slider.displayName = 'Slider';
 
 export default Slider;

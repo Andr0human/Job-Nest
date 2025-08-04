@@ -25,5 +25,9 @@
 }
 
 .reload-btn:hover {
-  color: blue;
+  color: var(--primary-600);
+}
+
+.upload-icon {
+  color: var(--primary-600);
 }

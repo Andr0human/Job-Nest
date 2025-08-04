@@ -1,7 +1,5 @@
-import { Statistic as StatisticComponent } from "antd";
+import { Statistic as StatisticComponent } from 'antd';
 
-const Statistic = (props) => {
-  return <StatisticComponent {...props} />;
-};
+const Statistic = props => <StatisticComponent {...props} />;
 
 export default Statistic;

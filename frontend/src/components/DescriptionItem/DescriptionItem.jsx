@@ -1,7 +1,5 @@
-import { Descriptions } from "antd";
+import { Descriptions } from 'antd';
 
-const DescriptionItem = (props) => {
-  return <Descriptions.Item {...props} />;
-};
+const DescriptionItem = props => <Descriptions.Item {...props} />;
 
 export default DescriptionItem;

@@ -1,5 +1,5 @@
-import { lazy } from "react";
+import { lazy } from 'react';
 
-const Avatar = lazy(() => import("./Avatar"));
+const Avatar = lazy(() => import('./Avatar'));
 
 export { Avatar };

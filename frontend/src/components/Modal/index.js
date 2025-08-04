@@ -1,5 +1,5 @@
-import { lazy } from "react";
+import { lazy } from 'react';
 
-const Modal = lazy(() => import("./Modal"));
+const Modal = lazy(() => import('./Modal'));
 
 export { Modal };

@@ -1,15 +1,18 @@
-import { useContext } from "react";
-import { Button, Select, Slider, Title } from "../../../components";
-import { ListingContext } from "./Context";
-import { industry, jobTypes } from "./filtersTypes";
+import { useContext } from 'react';
 
-const jobTypeOptions = Object.values(jobTypes).map((value) => ({
+import { Button, Select, Slider } from '../../../components';
+import { FilterOutlined, ReloadOutlined } from '../../../components/Icons';
+
+import { ListingContext } from './Context';
+import { industry, jobTypes } from './filtersTypes';
+
+const jobTypeOptions = Object.values(jobTypes).map(value => ({
   label: value,
   value,
   desc: value,
 }));
 
-const industryOptions = Object.values(industry).map((value) => ({
+const industryOptions = Object.values(industry).map(value => ({
   label: value,
   value,
   desc: value,
@@ -35,53 +38,74 @@ const JobFilters = () => {
     setToFetch(true);
   };
 
-  const formatter = (value) => `${Math.round(value / 100000)} lpa`;
+  const formatter = value => `₹${Math.round(value / 100000)}L`;
 
   return (
-    <div className="filter-container">
-      <Title level={5}>Select Job Type</Title>
-      <Select
-        mode="multiple"
-        className="select-container"
-        dropdownStyle={{ textAlign: "center" }}
-        placeholder="Job Type"
-        onChange={(value) => setFilters({ ...filters, jobType: value })}
-        optionLabelProp="jobType"
-        options={jobTypeOptions}
-        value={filters.jobType}
-      />
+    <div className='filter-container'>
+      <h3 className='filter-heading'>
+        <FilterOutlined />
+        <span>Filter Jobs</span>
+      </h3>
 
-      <Title level={5}>Select Industry</Title>
-      <Select
-        mode="multiple"
-        className="select-container"
-        dropdownStyle={{ textAlign: "center" }}
-        placeholder="Industry"
-        onChange={(value) => setFilters({ ...filters, industry: value })}
-        optionLabelProp="industry"
-        options={industryOptions}
-        value={filters.industry}
-      />
-
-      <Title level={5}>Set salary range</Title>
-      <Slider
-        range
-        marks={{ 200000: "2 lpa", 5000000: "50 lpa" }}
-        tooltip={{ formatter }}
-        onChange={(value) => setFilters({ ...filters, salary: value })}
-        min={200000}
-        max={5000000}
-        value={filters.salary}
-      />
-
-      <div className="filter-btn-container">
-        <Button onClick={applyFilters} type="primary">
-          Apply Filters
-        </Button>
-        <Button onClick={clearFilters} style={{ marginLeft: 10 }}>
-          Reset Filters
-        </Button>
+      <div className='filter-section'>
+        <div className='filter-section-title'>Job Type</div>
+        <Select
+          mode='multiple'
+          className='select-container'
+          placeholder='Select job types...'
+          onChange={value => setFilters({ ...filters, jobType: value })}
+          options={jobTypeOptions}
+          value={filters.jobType}
+          allowClear
+          maxTagCount={2}
+        />
       </div>
+
+      <div className='filter-section'>
+        <div className='filter-section-title'>Industry</div>
+        <Select
+          mode='multiple'
+          className='select-container'
+          placeholder='Select industries...'
+          onChange={value => setFilters({ ...filters, industry: value })}
+          options={industryOptions}
+          value={filters.industry}
+          allowClear
+          maxTagCount={2}
+        />
+      </div>
+
+      <div className='filter-section'>
+        <div className='filter-section-title'>Salary Range</div>
+        <Slider
+          range
+          marks={{
+            200000: '₹2L',
+            1000000: '₹10L',
+            2500000: '₹25L',
+            5000000: '₹50L',
+          }}
+          tooltip={{ formatter }}
+          onChange={value => setFilters({ ...filters, salary: value })}
+          min={200000}
+          max={5000000}
+          value={filters.salary}
+          step={100000}
+        />
+      </div>
+
+      <Button
+        type='button'
+        className='apply-filters-btn'
+        onClick={applyFilters}
+      >
+        Apply Filters
+      </Button>
+
+      <Button type='button' className='reset-btn' onClick={clearFilters}>
+        <ReloadOutlined />
+        <span>Reset All</span>
+      </Button>
     </div>
   );
 };

@@ -1,6 +1,7 @@
-import { message } from "antd";
-import React, { useContext } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { message } from 'antd';
+import { useContext } from 'react';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+
 import {
   Button,
   Form,
@@ -9,153 +10,153 @@ import {
   InputPassword,
   Text,
   Title,
-} from "../../../components";
+} from '../../../components';
 import {
   LockOutlined,
   MailOutlined,
   UserAddOutlined,
   UserOutlined,
-} from "../../../components/Icons";
-import apiInstance from "../../../services/api";
-import { AuthenticationContext } from "../Authentication/Context";
-
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+} from '../../../components/Icons';
+import { delay } from '../../../lib/utils';
+import apiInstance from '../../../services/api';
+import { AuthenticationContext } from '../Authentication/Context';
 
 const Register = () => {
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
   const { isAuth } = useContext(AuthenticationContext);
 
-  const displaySuccessMessage = (message) => {
+  const displaySuccessMessage = data => {
     messageApi.open({
-      type: "success",
-      content: message,
+      type: 'success',
+      content: data,
       duration: 1,
     });
   };
 
-  const displayErrorMessage = (data) => {
+  const displayErrorMessage = data => {
     if (data?.error?.details) {
-      data.error.details.forEach((error) =>
+      data.error.details.forEach(error =>
         messageApi.open({
-          type: "error",
+          type: 'error',
           content: error.message,
           duration: 10,
-        })
+        }),
       );
       return;
     }
 
     messageApi.open({
-      type: "error",
+      type: 'error',
       content: data.message,
       duration: 4,
     });
   };
 
-  const onFinish = async (values) => {
-    const { confirmPassword, ...formData } = values;
+  const onFinish = async values => {
+    const formData = values;
+    delete formData.confirmPassword;
 
     try {
-      await apiInstance.post("/users/register", formData);
+      await apiInstance.post('/users/register', formData);
       displaySuccessMessage(
-        "User successfully registered. Redirecting to login page.."
+        'User successfully registered. Redirecting to login page..',
       );
 
       await delay(1000);
-      navigate("/login");
+      navigate('/login');
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       displayErrorMessage(error.response.data);
     }
   };
 
   if (isAuth) {
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to='/' replace />;
   }
 
   return (
     <>
       {contextHolder}
-      <section className="form-section">
-        <div className="form-container">
-          <div className="form-header">
-            <UserAddOutlined className="form-icon" />
-            <Title className="form-title">Sign Up</Title>
-            <Text className="form-text">
+      <section className='form-section'>
+        <div className='form-container'>
+          <div className='form-header'>
+            <UserAddOutlined className='form-icon' />
+            <Title className='form-title'>Sign Up</Title>
+            <Text className='form-text'>
               Welcome to JobNest! Please enter your details to get started.
             </Text>
           </div>
           <Form
-            aria-label="register-form"
-            name="register"
+            aria-label='register-form'
+            name='register'
             onFinish={onFinish}
-            layout="vertical"
-            requiredMark="optional"
+            layout='vertical'
+            requiredMark='optional'
           >
             <FormItem
-              name="name"
-              label="Name"
+              name='name'
+              label='Name'
               rules={[
                 {
                   required: true,
-                  message: "Please input your Name!",
+                  message: 'Please input your Name!',
                 },
               ]}
               hasFeedback
             >
-              <Input prefix={<UserOutlined />} placeholder="Name" />
+              <Input prefix={<UserOutlined />} placeholder='Name' />
             </FormItem>
 
             <FormItem
-              name="email"
-              label="Email"
+              name='email'
+              label='Email'
               rules={[
                 {
-                  type: "email",
+                  type: 'email',
                   required: true,
-                  message: "Please input your Email!",
+                  message: 'Please input your Email!',
                 },
               ]}
               hasFeedback
             >
-              <Input prefix={<MailOutlined />} placeholder="Email" />
+              <Input prefix={<MailOutlined />} placeholder='Email' />
             </FormItem>
             <FormItem
-              name="password"
-              label="Password"
+              name='password'
+              label='Password'
               rules={[
                 {
                   required: true,
-                  message: "Please input your Password!",
+                  message: 'Please input your Password!',
                 },
               ]}
             >
               <InputPassword
                 prefix={<LockOutlined />}
-                type="password"
-                placeholder="Password"
+                type='password'
+                placeholder='Password'
               />
             </FormItem>
 
             <FormItem
-              name="confirmPassword"
-              label="Confirm Password"
-              dependencies={["password"]}
+              name='confirmPassword'
+              label='Confirm Password'
+              dependencies={['password']}
               rules={[
                 {
                   required: true,
-                  message: "Please confirm your password!",
+                  message: 'Please confirm your password!',
                 },
                 ({ getFieldValue }) => ({
                   validator(_, value) {
-                    if (!value || getFieldValue("password") === value) {
+                    if (!value || getFieldValue('password') === value) {
                       return Promise.resolve();
                     }
                     return Promise.reject(
                       new Error(
-                        "The new password that you entered do not match!"
-                      )
+                        'The new password that you entered do not match!',
+                      ),
                     );
                   },
                 }),
@@ -163,18 +164,18 @@ const Register = () => {
             >
               <InputPassword
                 prefix={<LockOutlined />}
-                type="password"
-                placeholder="Password"
+                type='password'
+                placeholder='Password'
               />
             </FormItem>
 
             <FormItem>
-              <Button block="true" type="primary" htmlType="submit">
+              <Button block='true' type='primary' htmlType='submit'>
                 Sign Up
               </Button>
-              <div className="form-footer">
-                <Text className="form-text">Already have an account?</Text>
-                <Link to="/login">Sign in</Link>
+              <div className='form-footer'>
+                <Text className='form-text'>Already have an account?</Text>
+                <Link to='/login'>Sign in</Link>
               </div>
             </FormItem>
           </Form>

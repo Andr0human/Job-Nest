@@ -1,5 +1,5 @@
-import { lazy } from "react";
+import { lazy } from 'react';
 
-const Popconfirm = lazy(() => import("./Popconfirm"));
+const Popconfirm = lazy(() => import('./Popconfirm'));
 
 export { Popconfirm };

@@ -1,5 +1,5 @@
-import { lazy } from "react";
+import { lazy } from 'react';
 
-const TextArea = lazy(() => import("./TextArea"));
+const TextArea = lazy(() => import('./TextArea'));
 
 export { TextArea };

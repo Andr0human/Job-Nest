@@ -1,5 +1,5 @@
-import { lazy } from "react";
+import { lazy } from 'react';
 
-const InputNumber = lazy(() => import("./InputNumber"));
+const InputNumber = lazy(() => import('./InputNumber'));
 
 export { InputNumber };

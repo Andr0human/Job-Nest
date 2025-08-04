@@ -1,7 +1,5 @@
-import { Card as CardComponent } from "antd";
+import { Card as CardComponent } from 'antd';
 
-const Card = (props) => {
-  return <CardComponent {...props} />;
-};
+const Card = props => <CardComponent {...props} />;
 
 export default Card;

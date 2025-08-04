@@ -1,7 +1,5 @@
-import { Tag as TagComponent } from "antd";
+import { Tag as TagComponent } from 'antd';
 
-const Tag = (props) => {
-  return <TagComponent {...props} />;
-};
+const Tag = props => <TagComponent {...props} />;
 
 export default Tag;

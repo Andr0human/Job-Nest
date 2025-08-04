@@ -1,5 +1,5 @@
-import { lazy } from "react";
+import { lazy } from 'react';
 
-const Spin = lazy(() => import("./Spin"));
+const Spin = lazy(() => import('./Spin'));
 
 export { Spin };

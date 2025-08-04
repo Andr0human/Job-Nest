@@ -1,7 +1,10 @@
-import { Modal as ModalComponent } from "antd";
+import { Modal as ModalComponent } from 'antd';
+import { forwardRef } from 'react';
 
-const Modal = (props) => {
-  return <ModalComponent {...props} />;
-};
+const Modal = forwardRef((props, ref) => (
+  <ModalComponent {...props} ref={ref} />
+));
+
+Modal.displayName = 'Modal';
 
 export default Modal;

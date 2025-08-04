@@ -1,7 +1,5 @@
-import { Typography } from "antd";
+import { Typography } from 'antd';
 
-const Paragraph = (props) => {
-  return <Typography.Paragraph {...props} />;
-};
+const Paragraph = props => <Typography.Paragraph {...props} />;
 
 export default Paragraph;

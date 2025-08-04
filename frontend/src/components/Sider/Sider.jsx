@@ -1,7 +1,5 @@
-import { Layout } from "antd";
+import { Layout } from 'antd';
 
-const Sider = (props) => {
-  return <Layout.Sider {...props} />;
-};
+const Sider = props => <Layout.Sider {...props} />;
 
 export default Sider;

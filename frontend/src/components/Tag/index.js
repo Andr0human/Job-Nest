@@ -1,5 +1,5 @@
-import { lazy } from "react";
+import { lazy } from 'react';
 
-const Tag = lazy(() => import("./Tag"));
+const Tag = lazy(() => import('./Tag'));
 
 export { Tag };

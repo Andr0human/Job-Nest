@@ -1,7 +1,5 @@
-import { Input } from "antd";
+import { Input } from 'antd';
 
-const Search = (props) => {
-  return <Input.Search {...props} />;
-};
+const Search = props => <Input.Search {...props} />;
 
 export default Search;

@@ -1,7 +1,10 @@
-import { Table as TableComponent } from "antd";
+import { Table as TableComponent } from 'antd';
+import { forwardRef } from 'react';
 
-const Table = (props) => {
-  return <TableComponent {...props} />;
-};
+const Table = forwardRef((props, ref) => (
+  <TableComponent {...props} ref={ref} />
+));
+
+Table.displayName = 'Table';
 
 export default Table;

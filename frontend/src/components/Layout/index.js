@@ -1,5 +1,5 @@
-import { lazy } from "react";
+import { lazy } from 'react';
 
-const Layout = lazy(() => import("./Layout"));
+const Layout = lazy(() => import('./Layout'));
 
 export { Layout };

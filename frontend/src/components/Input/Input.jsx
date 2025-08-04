@@ -1,12 +1,10 @@
-import React, { forwardRef } from "react";
-import { Input as InputComponent } from "antd";
+import { Input as InputComponent } from 'antd';
+import { forwardRef } from 'react';
 
-const Input = forwardRef((props, ref) => {
-  return (
-    <div ref={ref}>
-      <InputComponent {...props} />
-    </div>
-  );
-});
+const Input = forwardRef((props, ref) => (
+  <InputComponent {...props} ref={ref} />
+));
+
+Input.displayName = 'Input';
 
 export default Input;

@@ -1,7 +1,5 @@
-import { Col as ColComponent } from "antd";
+import { Col as ColComponent } from 'antd';
 
-const Col = (props) => {
-  return <ColComponent {...props} />;
-};
+const Col = props => <ColComponent {...props} />;
 
 export default Col;

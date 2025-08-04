@@ -1,28 +1,42 @@
-import React from "react";
-import { Col, FormItem, RadioGroup } from "../../../../components";
+import PropTypes from 'prop-types';
+
+import { Col, FormItem, RadioGroup } from '../../../../components';
 
 const radioOptions = [
-  { label: "Yes", value: true },
-  { label: "No", value: false },
+  { label: 'Yes', value: true },
+  { label: 'No', value: false },
 ];
 
-const RadioField = () => {
+const RadioField = props => {
+  const { name, label, required = true, ...rest } = props;
+
   return (
-    <Col lg={12} md={8} xs={24}>
+    <Col lg={12} md={12} xs={24}>
       <FormItem
-        name="isRemote"
-        label="Is Remote"
-        rules={[
-          {
-            required: true,
-            message: "Please select if the job is remote",
-          },
-        ]}
+        name={name}
+        label={label}
+        rules={
+          required
+            ? [
+                {
+                  required: true,
+                  message: `Please select ${label.toLowerCase()}`,
+                },
+              ]
+            : []
+        }
+        {...rest}
       >
         <RadioGroup options={radioOptions} />
       </FormItem>
     </Col>
   );
+};
+
+RadioField.propTypes = {
+  name: PropTypes.string,
+  label: PropTypes.string,
+  required: PropTypes.bool,
 };
 
 export default RadioField;

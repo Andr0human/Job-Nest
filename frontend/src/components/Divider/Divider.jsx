@@ -1,7 +1,5 @@
-import { Divider as DividerComponent } from "antd";
+import { Divider as DividerComponent } from 'antd';
 
-const Divider = (props) => {
-  return <DividerComponent {...props} />;
-};
+const Divider = props => <DividerComponent {...props} />;
 
 export default Divider;

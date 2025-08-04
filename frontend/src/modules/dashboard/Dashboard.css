@@ -1,0 +1,98 @@
+/* Dashboard Page Styles */
+.dashboard-page-layout {
+  min-height: 100vh;
+  background-color: var(--gray-50);
+}
+
+.dashboard-page-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.dashboard-welcome {
+  text-align: center;
+  margin-bottom: 3rem;
+  background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
+  padding: 3rem;
+  border-radius: 1rem;
+  color: white;
+  box-shadow: 0 4px 20px rgba(124, 77, 170, 0.25);
+}
+
+.welcome-title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.welcome-subtitle {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.dashboard-stats {
+  margin-bottom: 3rem;
+}
+
+.stats-card {
+  height: 100%;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-xl);
+  transition: all var(--transition-normal);
+  border: 1px solid var(--gray-200);
+  background: white;
+}
+
+.stats-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--primary-200);
+}
+
+.card-action {
+  margin-top: 1.5rem;
+}
+
+.dashboard-actions {
+  margin-bottom: 3rem;
+}
+
+.actions-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--gray-800);
+  margin-bottom: 1.5rem;
+}
+
+.action-card {
+  height: 100%;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-xl);
+  transition: all var(--transition-normal);
+  border: 1px solid var(--gray-200);
+  background: white;
+}
+
+.action-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--primary-200);
+}
+
+.action-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--gray-800);
+  margin-bottom: 0.8rem;
+}
+
+.action-description {
+  color: var(--gray-600);
+  margin-bottom: 1.5rem;
+  min-height: 48px;
+}

@@ -1,5 +1,5 @@
-import { lazy } from "react";
+import { lazy } from 'react';
 
-const Title = lazy(() => import("./Title"));
+const Title = lazy(() => import('./Title'));
 
 export { Title };

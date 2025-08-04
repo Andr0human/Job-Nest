@@ -3,7 +3,7 @@
   display: flex;
   height: 100vh;
   padding: 48px 0px;
-  background-color: aliceblue;
+  background: linear-gradient(135deg, var(--primary-50) 0%, var(--primary-100) 100%);
   background-size: "cover";
 }
 
@@ -12,7 +12,9 @@
   padding: 32px;
   width: 400px;
   background-color: white;
-  border-radius: 12px;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--gray-200);
 }
 
 .form-title {
@@ -32,9 +34,10 @@
 }
 
 .form-text {
-  color: rgba(0, 0, 0, 0.65);
+  color: var(--gray-600);
 }
 
 .form-icon {
   font-size: 32px;
+  color: var(--primary-600);
 }

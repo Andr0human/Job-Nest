@@ -1,7 +1,5 @@
-import { Layout as LayoutComponent } from "antd";
+import { Layout as LayoutComponent } from 'antd';
 
-const Layout = (props) => {
-  return <LayoutComponent {...props} />;
-};
+const Layout = props => <LayoutComponent {...props} />;
 
 export default Layout;

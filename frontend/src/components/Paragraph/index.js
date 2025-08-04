@@ -1,5 +1,5 @@
-import { lazy } from "react";
+import { lazy } from 'react';
 
-const Paragraph = lazy(() => import("./Paragraph"));
+const Paragraph = lazy(() => import('./Paragraph'));
 
 export { Paragraph };

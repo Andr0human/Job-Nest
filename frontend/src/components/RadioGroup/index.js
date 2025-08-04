@@ -1,5 +1,5 @@
-import { lazy } from "react";
+import { lazy } from 'react';
 
-const RadioGroup = lazy(() => import("./RadioGroup"));
+const RadioGroup = lazy(() => import('./RadioGroup'));
 
 export { RadioGroup };

@@ -1,0 +1,279 @@
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.chat-input {
+  width: 100%;
+  padding: 0 1.5rem;
+  font-size: 1rem;
+  border-radius: 9999px;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: white;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.chat-input:focus {
+  outline: none;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.chat-input-small {
+  height: 2.5rem;
+}
+
+.chat-input-large {
+  height: 64px;
+  font-size: 1.125rem;
+  font-weight: 500;
+  padding-right: 130px; /* Make room for the button */
+}
+
+.chat-input::placeholder {
+  color: #9ca3af;
+  font-weight: 400;
+}
+
+.send-button {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 52px;
+  min-width: 120px;
+  padding: 0 1.5rem;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #9d6dd6, #6b4195);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.3px;
+  box-shadow: 0 4px 12px rgba(107, 65, 149, 0.4);
+}
+
+.send-button:hover {
+  background: linear-gradient(135deg, #8e5ec5, #5d3a82);
+  transform: translateY(-50%) translateY(-2px);
+  box-shadow: 0 8px 20px rgba(107, 65, 149, 0.5);
+}
+
+.send-button:active {
+  transform: translateY(-50%) translateY(1px);
+}
+
+.send-icon {
+  width: 20px;
+  height: 20px;
+  color: white;
+  opacity: 0.9;
+}
+
+/* Adjusted advanced toggle button to match the design */
+.advanced-toggle {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  border-radius: 0.75rem;
+  backdrop-filter: blur(10px);
+  font-weight: 500;
+  padding: 0.75rem 1.25rem;
+  height: 64px;
+  margin-left: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.advanced-toggle:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.advanced-toggle.active {
+  background: rgba(255, 255, 255, 0.9);
+  color: #8b5fb8;
+}
+
+.filter-icon {
+  display: inline-flex;
+  font-size: 1rem;
+}
+
+/* ENHANCED INTERACTIVE SEARCH BAR */
+.enhanced-search-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  margin-bottom: 1rem; /* Add spacing at the bottom of the container */
+}
+
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1rem; /* Consistent spacing */
+}
+
+/* Popular searches styling */
+.popular-searches {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem; /* Add bottom margin to create space */
+  flex-wrap: wrap;
+  padding: 0 1rem; /* Add some padding */
+}
+
+.popular-label {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.popular-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center; /* Center the tags */
+}
+
+.tag-button {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0.5rem;
+  padding: 0.4rem 0.9rem; /* Slightly larger padding */
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  white-space: nowrap; /* Prevent text wrapping inside buttons */
+}
+
+.tag-button:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Quick filters styling */
+.quick-filters {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.filter-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  border-radius: 0.75rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filter-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .enhanced-search-container {
+    padding: 0 1rem; /* Add padding on smaller screens */
+  }
+  
+  .search-wrapper {
+    flex-direction: column; /* Stack elements on smaller screens */
+    gap: 0.75rem;
+  }
+  
+  .advanced-toggle {
+    width: 100%; /* Full width on mobile */
+    margin-left: 0;
+    height: 50px !important; /* Smaller height on mobile */
+  }
+  
+  .chat-input-large {
+    height: 56px;
+    font-size: 1rem;
+    padding-right: 100px;
+  }
+  
+  .send-button {
+    height: 44px;
+    min-width: 90px;
+    padding: 0 1rem;
+    font-size: 0.875rem;
+  }
+  
+  .send-icon {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .popular-searches {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .chat-input-large {
+    height: 48px;
+    padding-right: 90px;
+  }
+  
+  .send-button {
+    min-width: 80px;
+    padding: 0 0.75rem;
+    height: 38px;
+    font-size: 0.825rem;
+  }
+  
+  .send-icon {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .advanced-toggle {
+    height: 45px !important;
+    padding: 0.5rem 1rem;
+  }
+  
+  .tag-button {
+    padding: 0.3rem 0.7rem;
+    font-size: 0.8rem;
+  }
+}

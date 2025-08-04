@@ -1,7 +1,5 @@
-import { Descriptions as DescriptionsComponent } from "antd";
+import { Descriptions as DescriptionsComponent } from 'antd';
 
-const Descriptions = (props) => {
-  return <DescriptionsComponent {...props} />;
-};
+const Descriptions = props => <DescriptionsComponent {...props} />;
 
 export default Descriptions;

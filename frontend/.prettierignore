@@ -1,0 +1,23 @@
+# Build outputs
+build/
+dist/
+*.min.js
+*.min.css
+
+# Dependencies
+node_modules/
+
+# Public assets
+public/
+
+# Package files
+package-lock.json
+yarn.lock
+
+
+
+# Coverage reports
+coverage/
+
+# Logs
+*.log 

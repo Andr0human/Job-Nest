@@ -1,5 +1,5 @@
-import { lazy } from "react";
+import { lazy } from 'react';
 
-const FormList = lazy(() => import("./FormList"));
+const FormList = lazy(() => import('./FormList'));
 
 export { FormList };
