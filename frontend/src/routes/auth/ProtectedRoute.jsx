@@ -1,8 +1,10 @@
+/* eslint-disable no-underscore-dangle */
 import PropTypes from 'prop-types';
-import React, { useContext, useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
-import apiInstance from "../../services/api";
+import { useContext, useEffect, useState } from 'react';
+import { Navigate } from 'react-router-dom';
+
 import { AuthenticationContext } from '../../modules/user';
+import apiInstance from '../../services/api';
 
 const ProtectedRoute = ({ children }) => {
   const { setIsAuth, setAuthData } = useContext(AuthenticationContext);
@@ -11,7 +13,7 @@ const ProtectedRoute = ({ children }) => {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const response = await apiInstance.get("/users/token");
+        const response = await apiInstance.get('/users/token');
 
         setIsAuth(true);
         setAuthData({
@@ -35,11 +37,11 @@ const ProtectedRoute = ({ children }) => {
     return null;
   }
 
-  if (localStorage.getItem("token")) {
+  if (localStorage.getItem('token')) {
     return children;
   }
 
-  return <Navigate to="/login" replace />;
+  return <Navigate to='/login' replace />;
 };
 
 ProtectedRoute.propTypes = {

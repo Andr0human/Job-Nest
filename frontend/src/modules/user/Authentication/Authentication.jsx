@@ -1,14 +1,15 @@
-import { useMemo, useState } from "react";
-import { AuthenticationContext } from "./Context";
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
+import { useMemo, useState } from 'react';
+
+import { AuthenticationContext } from './Context';
 
 const Authentication = ({ children }) => {
   const [isAuth, setIsAuth] = useState(false);
-  const [authData, setAuthData] = useState("");
+  const [authData, setAuthData] = useState('');
 
   const contextValue = useMemo(
     () => ({ isAuth, setIsAuth, authData, setAuthData }),
-    [isAuth, authData]
+    [isAuth, authData],
   );
 
   return (

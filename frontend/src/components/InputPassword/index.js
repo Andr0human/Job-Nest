@@ -1,5 +1,5 @@
-import { lazy } from "react";
+import { lazy } from 'react';
 
-const InputPassword = lazy(() => import("./InputPassword"));
+const InputPassword = lazy(() => import('./InputPassword'));
 
 export { InputPassword };

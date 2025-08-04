@@ -1,5 +1,5 @@
-import { lazy } from "react";
+import { lazy } from 'react';
 
-const Footer =  lazy(() => import("./Footer"));
+const Footer = lazy(() => import('./Footer'));
 
 export { Footer };

@@ -1,7 +1,5 @@
-import { Layout } from "antd";
+import { Layout } from 'antd';
 
-const Footer = (props) => {
-  return <Layout.Footer {...props} />;
-};
+const Footer = props => <Layout.Footer {...props} />;
 
 export default Footer;

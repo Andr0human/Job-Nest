@@ -1,7 +1,5 @@
-import { Layout } from "antd";
+import { Layout } from 'antd';
 
-const Header = (props) => {
-  return <Layout.Header {...props} />;
-};
+const Header = props => <Layout.Header {...props} />;
 
 export default Header;

@@ -1,12 +1,10 @@
-import React, { forwardRef } from "react";
-import { DatePicker as DatePickerComponent } from "antd";
+import { DatePicker as DatePickerComponent } from 'antd';
+import { forwardRef } from 'react';
 
-const DatePicker = forwardRef((props, ref) => {
-  return (
-    <div ref={ref}>
-      <DatePickerComponent {...props} />
-    </div>
-  );
-});
+const DatePicker = forwardRef((props, ref) => (
+  <DatePickerComponent {...props} ref={ref} />
+));
+
+DatePicker.displayName = 'DatePicker';
 
 export default DatePicker;

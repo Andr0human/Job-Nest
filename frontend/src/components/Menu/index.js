@@ -1,5 +1,5 @@
-import { lazy } from "react";
+import { lazy } from 'react';
 
-const Menu =  lazy(() => import("./Menu"));
+const Menu = lazy(() => import('./Menu'));
 
 export { Menu };

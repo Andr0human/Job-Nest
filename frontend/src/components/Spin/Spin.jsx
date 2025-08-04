@@ -1,7 +1,5 @@
-import { Spin as SpinComponent } from "antd";
+import { Spin as SpinComponent } from 'antd';
 
-const Spin = (props) => {
-  return <SpinComponent {...props} />;
-};
+const Spin = props => <SpinComponent {...props} />;
 
 export default Spin;

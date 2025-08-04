@@ -1,7 +1,5 @@
-import { Row as RowComponent } from "antd";
+import { Row as RowComponent } from 'antd';
 
-const Row = (props) => {
-  return <RowComponent {...props} />;
-};
+const Row = props => <RowComponent {...props} />;
 
 export default Row;

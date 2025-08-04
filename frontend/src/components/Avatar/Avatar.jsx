@@ -1,7 +1,5 @@
-import { Avatar as AvatarComponent } from "antd";
+import { Avatar as AvatarComponent } from 'antd';
 
-const Avatar = (props) => {
-  return <AvatarComponent {...props} />;
-};
+const Avatar = props => <AvatarComponent {...props} />;
 
 export default Avatar;

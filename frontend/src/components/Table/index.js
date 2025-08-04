@@ -1,5 +1,5 @@
-import { lazy } from "react";
+import { lazy } from 'react';
 
-const Table = lazy(() => import("./Table"));
+const Table = lazy(() => import('./Table'));
 
 export { Table };

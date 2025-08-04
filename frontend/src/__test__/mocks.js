@@ -185,7 +185,9 @@ export const jobDetail = {
     data: {
       address: {
         city: 'Test City - 1',
+        state: 'Test State - 1',
       },
+      salary: 1007654,
       qualifications: {
         education: 'B. Tech',
         skills: ['C', 'C++', 'Python'],

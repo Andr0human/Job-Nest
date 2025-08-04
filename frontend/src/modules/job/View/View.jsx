@@ -1,6 +1,7 @@
-import dayjs from "dayjs";
-import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import dayjs from 'dayjs';
+import { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+
 import {
   Card,
   DescriptionItem,
@@ -12,14 +13,21 @@ import {
   Tag,
   Text,
   Title,
-} from "../../../components";
-import apiInstance from "../../../services/api";
-import "./view.css";
+} from '../../../components';
+import apiInstance from '../../../services/api';
+import './view.css';
 
 const View = () => {
   const { jobId } = useParams();
   const [jobListing, setJobListing] = useState({});
   const [notFound, setNotFound] = useState(false);
+
+  const formatSalary = salary => {
+    if (salary >= 100000) {
+      return `₹${(salary / 100000).toFixed(1)}L`;
+    }
+    return `₹${(salary / 1000).toFixed(0)}K`;
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,7 +42,7 @@ const View = () => {
         setJobListing(jobData);
       } catch (error) {
         setNotFound(true);
-        console.error("Error fetching data:", error);
+        console.error('Error fetching data:', error);
       }
     };
 
@@ -46,7 +54,7 @@ const View = () => {
   }
 
   return (
-    <div className="view-container">
+    <div className='view-container'>
       <Card
         title={`${jobListing.title} (${jobListing.company})`}
         extra={
@@ -57,48 +65,48 @@ const View = () => {
           />
         }
         style={{ borderRadius: 12 }}
-        className="view-card"
+        className='view-card'
       >
         <Descriptions bordered column={2}>
-          <DescriptionItem label="Job Type" className="view-text">
+          <DescriptionItem label='Job Type' className='view-text'>
             {jobListing.jobType}
           </DescriptionItem>
-          <DescriptionItem label="Industry" className="view-text">
+          <DescriptionItem label='Industry' className='view-text'>
             {jobListing.industry}
           </DescriptionItem>
-          <DescriptionItem label="Salary" className="view-text">
-            {`₹ ${jobListing.salary} lpa`}
+          <DescriptionItem label='Salary' className='view-text'>
+            {formatSalary(jobListing.salary)}
           </DescriptionItem>
-          <DescriptionItem label="Location" className="view-text">
+          <DescriptionItem label='Location' className='view-text'>
             {jobListing.address}
           </DescriptionItem>
-          <DescriptionItem label="Remote" className="view-text">
-            {jobListing.isRemote ? "Yes" : "No"}
+          <DescriptionItem label='Remote' className='view-text'>
+            {jobListing.isRemote ? 'Yes' : 'No'}
           </DescriptionItem>
-          <DescriptionItem label="Application Deadline" className="view-text">
-            {dayjs(jobListing.applicationDeadline).format("Do MMMM, YYYY")}
+          <DescriptionItem label='Application Deadline' className='view-text'>
+            {dayjs(jobListing.applicationDeadline).format('Do MMMM, YYYY')}
           </DescriptionItem>
         </Descriptions>
 
         <Title level={3}>Job Description</Title>
-        <Paragraph className="view-text">{jobListing.description}</Paragraph>
+        <Paragraph className='view-text'>{jobListing.description}</Paragraph>
 
         <Title level={3}>Qualifications</Title>
         <Descriptions bordered column={2}>
-          <DescriptionItem label="Min Education" className="view-text">
+          <DescriptionItem label='Min Education' className='view-text'>
             {jobListing.qualifications?.education}
           </DescriptionItem>
-          <DescriptionItem label="Skills" className="view-text">
-            {jobListing.qualifications?.skills?.map((skill) => (
-              <Tag className="view-text" key={`${skill}`}>
+          <DescriptionItem label='Skills' className='view-text'>
+            {jobListing.qualifications?.skills?.map(skill => (
+              <Tag className='view-text' key={`${skill}`}>
                 {skill}
               </Tag>
             ))}
           </DescriptionItem>
-          <DescriptionItem label="Min Experience" className="view-text">
+          <DescriptionItem label='Min Experience' className='view-text'>
             {jobListing.qualifications?.minExperience} years
           </DescriptionItem>
-          <DescriptionItem label="Max Experience" className="view-text">
+          <DescriptionItem label='Max Experience' className='view-text'>
             {jobListing.qualifications?.maxExperience} years
           </DescriptionItem>
         </Descriptions>
@@ -108,9 +116,9 @@ const View = () => {
             <Title level={3}>Requirements</Title>
             <List
               dataSource={jobListing.requirements}
-              renderItem={(requirement) => (
-                <ListItem className="hover-highlight">
-                  <Text className="view-text">{requirement}</Text>
+              renderItem={requirement => (
+                <ListItem className='hover-highlight'>
+                  <Text className='view-text'>{requirement}</Text>
                 </ListItem>
               )}
             />
@@ -122,9 +130,9 @@ const View = () => {
             <Title level={3}>Responsibilities</Title>
             <List
               dataSource={jobListing.responsibilities}
-              renderItem={(responsibility) => (
-                <ListItem className="hover-highlight">
-                  <Text className="view-text">{responsibility}</Text>
+              renderItem={responsibility => (
+                <ListItem className='hover-highlight'>
+                  <Text className='view-text'>{responsibility}</Text>
                 </ListItem>
               )}
             />
@@ -132,17 +140,17 @@ const View = () => {
         )}
 
         <Title level={3}>Contact Information</Title>
-        <Paragraph className="view-text">
+        <Paragraph className='view-text'>
           Email: {jobListing.contactEmail}
         </Paragraph>
 
         <Title level={3}>Apply Now</Title>
         {jobListing.applicationLink ? (
-          <Link to={jobListing.applicationLink} className="view-text">
+          <Link to={jobListing.applicationLink} className='view-text'>
             Apply Here
           </Link>
         ) : (
-          <Paragraph className="view-text">
+          <Paragraph className='view-text'>
             No application link provided.
           </Paragraph>
         )}

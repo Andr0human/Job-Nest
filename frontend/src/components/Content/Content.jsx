@@ -1,7 +1,5 @@
-import { Layout } from "antd";
+import { Layout } from 'antd';
 
-const Content = (props) => {
-  return <Layout.Content {...props} />;
-};
+const Content = props => <Layout.Content {...props} />;
 
 export default Content;

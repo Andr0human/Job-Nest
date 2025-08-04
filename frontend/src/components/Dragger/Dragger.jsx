@@ -1,7 +1,5 @@
-import { Upload } from "antd";
+import { Upload } from 'antd';
 
-const Dragger = (props) => {
-  return <Upload.Dragger {...props} />;
-};
+const Dragger = props => <Upload.Dragger {...props} />;
 
 export default Dragger;

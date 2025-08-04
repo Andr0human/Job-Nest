@@ -1,9 +1,11 @@
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
-import React, { act } from 'react';
+import { act } from 'react';
 import { BrowserRouter } from 'react-router-dom';
+
 import { Authentication, Register } from '../modules/user';
 import apiInstance from '../services/api';
+
 import { badRequestError2, userAlreadyExistError } from './mocks';
 import './setupTests';
 
@@ -19,8 +21,8 @@ describe('Register Page Test', () => {
           <BrowserRouter>
             <Register />
           </BrowserRouter>
-        </Authentication>
-      )
+        </Authentication>,
+      ),
     );
 
     const nameElement = screen.getByLabelText('Name');
@@ -42,11 +44,11 @@ describe('Register Page Test', () => {
     fireEvent.click(registerButton);
     expect(
       await screen.findByText(
-        '"name" length must be at least 3 characters long'
-      )
+        '"name" length must be at least 3 characters long',
+      ),
     ).toBeInTheDocument();
     expect(
-      await screen.findByText('Password must be at least 8 characters long')
+      await screen.findByText('Password must be at least 8 characters long'),
     ).toBeInTheDocument();
   });
 
@@ -59,8 +61,8 @@ describe('Register Page Test', () => {
           <BrowserRouter>
             <Register />
           </BrowserRouter>
-        </Authentication>
-      )
+        </Authentication>,
+      ),
     );
 
     const nameElement = screen.getByLabelText('Name');
@@ -87,14 +89,14 @@ describe('Register Page Test', () => {
 
     expect(
       await screen.findByText(
-        'User successfully registered. Redirecting to login page..'
-      )
+        'User successfully registered. Redirecting to login page..',
+      ),
     ).toBeInTheDocument();
   });
 
   it('form submission failed due to user already exists', async () => {
     apiInstance.post.mockImplementation(() =>
-      Promise.reject(userAlreadyExistError)
+      Promise.reject(userAlreadyExistError),
     );
 
     await act(async () =>
@@ -103,8 +105,8 @@ describe('Register Page Test', () => {
           <BrowserRouter>
             <Register />
           </BrowserRouter>
-        </Authentication>
-      )
+        </Authentication>,
+      ),
     );
 
     const nameElement = screen.getByLabelText('Name');

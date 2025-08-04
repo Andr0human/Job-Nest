@@ -1,5 +1,5 @@
-import { lazy } from "react";
+import { lazy } from 'react';
 
-const Profile = lazy(() => import("./Profile"));
+const Profile = lazy(() => import('./Profile'));
 
 export { Profile };

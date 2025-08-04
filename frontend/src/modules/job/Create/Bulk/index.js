@@ -1,5 +1,5 @@
-import { lazy } from "react";
+import { lazy } from 'react';
 
-const BulkUpload =  lazy(() => import("./Bulk"));
+const BulkUpload = lazy(() => import('./Bulk'));
 
 export { BulkUpload };

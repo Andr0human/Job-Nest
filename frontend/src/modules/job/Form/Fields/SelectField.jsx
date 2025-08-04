@@ -1,32 +1,44 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Col, FormItem, Select } from "../../../../components";
+import PropTypes from 'prop-types';
 
-const SelectField = (props) => {
-  const { name, label, options } = props;
+import { Col, FormItem, Select } from '../../../../components';
 
-  const selectOptions = options.map((value) => ({
+const SelectField = props => {
+  const {
+    name,
+    label,
+    options,
+    required = false,
+    placeholder,
+    ...rest
+  } = props;
+
+  const selectOptions = options.map(value => ({
     label: value,
     value,
     desc: value,
   }));
 
   return (
-    <Col lg={12} md={8} xs={24}>
+    <Col lg={12} md={12} xs={24}>
       <FormItem
         name={name}
         label={label}
-        rules={[
-          {
-            required: true,
-            message: `Please Select ${label}`,
-          },
-        ]}
+        rules={
+          required
+            ? [
+                {
+                  required: true,
+                  message: `Please select ${label.toLowerCase()}`,
+                },
+              ]
+            : []
+        }
+        {...rest}
       >
         <Select
           options={selectOptions}
-          dropdownStyle={{ textAlign: "center" }}
-          placeholder={`${label}...`}
+          dropdownStyle={{ textAlign: 'center' }}
+          placeholder={placeholder || `Select ${label.toLowerCase()}...`}
         />
       </FormItem>
     </Col>
@@ -39,7 +51,9 @@ SelectField.propTypes = {
     PropTypes.arrayOf(PropTypes.string),
   ]).isRequired,
   label: PropTypes.string.isRequired,
-  options: PropTypes.array.isRequired,
+  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  required: PropTypes.bool,
+  placeholder: PropTypes.string,
 };
 
 export default SelectField;

@@ -1,7 +1,5 @@
-import { List } from "antd";
+import { List } from 'antd';
 
-const ListItemMeta = (props) => {
-  return <List.Item.Meta {...props} />;
-};
+const ListItemMeta = props => <List.Item.Meta {...props} />;
 
 export default ListItemMeta;

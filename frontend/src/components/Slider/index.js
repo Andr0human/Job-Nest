@@ -1,5 +1,5 @@
-import { lazy } from "react";
+import { lazy } from 'react';
 
-const Slider = lazy(() => import("./Slider"));
+const Slider = lazy(() => import('./Slider'));
 
 export { Slider };

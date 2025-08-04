@@ -1,8 +1,10 @@
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import React, { act } from 'react';
+import { act } from 'react';
+
 import App from '../App';
 import apiInstance from '../services/api';
+
 import { badRequestError, mockUser } from './mocks';
 import './setupTests';
 
@@ -15,17 +17,17 @@ describe('Auth Routes Test', () => {
 
     // Wait for the initial rendering, we are in dashboard page
     await waitFor(() => {
-      expect(screen.getByText('JobNest')).toBeInTheDocument();
+      expect(screen.getByText('Welcome to JobNest')).toBeInTheDocument();
     });
 
     // Find user icon and hover mouse over to
     // trigger the appearance of the profile menu item
     const userIcon = screen.getByTestId('user-icon');
     fireEvent.mouseEnter(userIcon);
-    expect(await screen.findByText('Profile')).toBeInTheDocument();
+    expect(await screen.findByText('My Profile')).toBeInTheDocument();
 
     // Find and click the profile menu item
-    const profileMenuItem = screen.getByText('Profile');
+    const profileMenuItem = screen.getByText('My Profile');
     fireEvent.click(profileMenuItem);
 
     // Wait for the navigation to complete. Since not authenticated,
@@ -37,7 +39,7 @@ describe('Auth Routes Test', () => {
 
   it('Navigate to Profile when authenticated', async () => {
     // Mock authentication by setting a token in localStorage
-    localStorage.setItem("token", 'mock-token');
+    localStorage.setItem('token', 'mock-token');
     apiInstance.get.mockImplementation(() => Promise.resolve(mockUser));
 
     // Render the App component
@@ -45,7 +47,7 @@ describe('Auth Routes Test', () => {
 
     // Wait for the initial rendering, we are in the dashboard page
     await waitFor(() => {
-      expect(screen.getByText('JobNest')).toBeInTheDocument();
+      expect(screen.getByText('Welcome to JobNest')).toBeInTheDocument();
     });
 
     // Find the user icon and hover the mouse over to
@@ -54,15 +56,15 @@ describe('Auth Routes Test', () => {
     fireEvent.mouseEnter(userIcon);
 
     // Wait for the profile menu item to appear
-    expect(await screen.findByText('Profile')).toBeInTheDocument();
+    expect(await screen.findByText('My Profile')).toBeInTheDocument();
 
     // Find and click the profile menu item
-    const profileMenuItem = screen.getByText('Profile');
+    const profileMenuItem = screen.getByText('My Profile');
     fireEvent.click(profileMenuItem);
 
     // Wait for the navigation to complete and expect to be in the profile page
     await waitFor(() => {
-      expect(screen.getByText('Profile Page')).toBeInTheDocument();
+      expect(screen.getByText('Profile Settings')).toBeInTheDocument();
     });
   });
 
@@ -73,7 +75,7 @@ describe('Auth Routes Test', () => {
     await act(async () => render(<App />));
 
     await waitFor(async () => {
-      expect(screen.getByText('JobNest')).toBeInTheDocument();
+      expect(screen.getByText('Welcome to JobNest')).toBeInTheDocument();
     });
 
     // Find user icon and hover mouse over to

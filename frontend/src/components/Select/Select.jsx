@@ -1,12 +1,10 @@
-import React, { forwardRef } from "react";
-import { Select as SelectComponent } from "antd";
+import { Select as SelectComponent } from 'antd';
+import { forwardRef } from 'react';
 
-const Select = forwardRef((props, ref) => {
-  return (
-    <div ref={ref}>
-      <SelectComponent {...props} />
-    </div>
-  );
-});
+const Select = forwardRef((props, ref) => (
+  <SelectComponent {...props} ref={ref} />
+));
+
+Select.displayName = 'Select';
 
 export default Select;
