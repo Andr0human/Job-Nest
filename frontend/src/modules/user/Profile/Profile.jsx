@@ -103,7 +103,7 @@ const Profile = () => {
       await delay(1000);
       navigate('/');
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 

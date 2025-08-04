@@ -51,7 +51,7 @@ const UploadForm = props => {
       form.setFieldsValue(jobListing);
       setFormData(jobListing);
     }
-  }, [jobListing]);
+  }, [jobListing, form]);
 
   const steps = [
     {

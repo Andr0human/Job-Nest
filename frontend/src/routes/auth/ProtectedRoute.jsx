@@ -21,7 +21,7 @@ const ProtectedRoute = ({ children }) => {
           email: response.data.data.email,
         });
       } catch (error) {
-        console.log(error);
+        // console.log(error);
 
         localStorage.clear();
         setIsAuth(false);

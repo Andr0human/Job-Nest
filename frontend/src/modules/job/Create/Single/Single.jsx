@@ -28,7 +28,7 @@ const SingleUpload = () => {
           email: response.data.data.email,
         });
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       } finally {
         setLoading(false);
       }

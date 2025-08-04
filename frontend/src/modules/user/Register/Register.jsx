@@ -66,7 +66,7 @@ const Register = () => {
       await delay(1000);
       navigate('/login');
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       displayErrorMessage(error.response.data);
     }
   };
